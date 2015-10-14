@@ -3,6 +3,9 @@ Selenium::WebDriver
 
 [![Build Status](https://travis-ci.org/azawawi/perl6-selenium-webdriver.svg?branch=master)](https://travis-ci.org/azawawi/perl6-selenium-webdriver)
 
+Note: This module is experimental at the moment. The target for it to work on
+phantomjs and then Firefox, Chrome and IE web drivers.
+
 This provides the Perl 6 bindings for Selenium WebDriver.
 
 ## Example
