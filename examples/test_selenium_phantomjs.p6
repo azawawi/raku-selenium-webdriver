@@ -1,6 +1,7 @@
 #!/usr/bin/env perl6
 
 use v6;
+use lib '/home/azawawi/http-useragent/lib';
 use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
@@ -22,7 +23,7 @@ my $o;
 $o = set_url( $session_id, "http://google.com" );
 
 $o = get_screenshot($session_id);
-"screenshot01.png".IO.slurp(MIME::Base64.decode-str( $o<value> ));
+"screenshot01.png".IO.spurt(MIME::Base64.decode( $o<value> ));
 
 
 # POST /session
@@ -41,40 +42,34 @@ sub new_session {
 sub execute_command(Str $method, Str $command, Hash $params) {
     say "POST $command with params " ~ $params.perl;
 
+    my $ua = HTTP::UserAgent.new;
+    my $url = "$(URL)$command";
     my $response;
     if ( $method eq "POST" ) {
-
-        my $url = "$(URL)$command";
         my $content = to-json($params);
-
         my $request = HTTP::Request.new(
           :POST($url),
-          :Content-Length($content.chars)
-          :Content-Type("application/json;charset=UTF-8")
+          :Content-Length($content.chars),
+          :Content-Type("application/json;charset=UTF-8"),
+          :Connection("close"),
         );
         $request.add-content($content);
-        say "\nRequest is:\n" ~ $request.Str;
-
-        my $ua = HTTP::UserAgent.new;
         $response = $ua.request($request);
-        say $response.perl;
-    }
+      }
     elsif ( $method eq "GET" ) {
-        $response = LWP::Simple.get( "$(URL)$command" );
+        $response = $ua.get( $url );
     }
     else {
         die qq{Unknown method "$method"};
     }
     
     my $result;
-    if ( $response.defined ) {
-        $result = from-json( $response );
+    if ( $response.is-success ) {
+        $result = from-json( $response.content );
     }
     else {
-        warn "FAILED!";
+        warn "FAILED: " ~ $response.status-line;
     }
-
-    say $result.perl;
 
     return $result;
 }
