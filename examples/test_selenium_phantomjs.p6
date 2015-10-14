@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 
 use v6;
-use HTTP::Client;
+use HTTP::Tinyish;
 use JSON::Tiny;
 use MIME::Base64;
 
@@ -39,31 +39,35 @@ sub new_session {
 
 
 sub execute_command(Str $method, Str $command, Hash $params) {
-
-    my $client = HTTP::Client.new;
+say $method;
     my $response;
     if ( $method eq "POST" ) {
-        my $request = $client.post;
-        $request.url("$(URL)$command");
-        $request.set-content(to-json($params));
-        $response = $request.run;
+
+        my $http = HTTP::Tinyish.new;
+        my $url = "$(URL)$command";
+        my $content = to-json($params);
+
+        $response = $http.post:
+          $url,
+          headers => { "Content-Type" => "application/json;charset=UTF-8", "Content-Length" => $content.chars },
+          content => $content,
+        ;
+        say "done!";
     }
     elsif ( $method eq "GET" ) {
-        $response = $client.get( "$(URL)$command" );
-    }
-    elsif( $method eq 'DELETE') {
-      $response = $client.delete( "$(URL)$command" );
+        $response = LWP::Simple.get( "$(URL)$command" );
     }
     else {
         die qq{Unknown method "$method"};
     }
     
     my $result;
-    if ( $response.success ) {
-        $result = from-json( $response.content );
+    if ( $response.defined ) {
+      say $response.perl;
+        $result = from-json( $response );
     }
     else {
-        warn "ERROR: " ~ $response.message;
+        warn "FAILED!";
     }
 
     say $result.perl;
