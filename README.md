@@ -19,18 +19,29 @@ $driver.quit;
 
 ```
 
+## NOTES
+
+To install phantomjs on debian, please type the following:
+```
+$ sudo apt-get install phantomjs
+```
+
 ## Installation
 
 To install it using Panda (a module management tool bundled with Rakudo Star):
 
-    panda update
-    panda install Selenium::WebDriver
+```
+$ panda update
+$ panda install Selenium::WebDriver
+```
 
 ## Testing
 
 To run tests:
 
-    prove -e perl6
+```
+$ prove -e perl6
+```
 
 ## Author
 
