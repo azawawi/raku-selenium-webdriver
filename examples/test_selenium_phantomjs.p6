@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 
 use v6;
-use lib '/home/azawawi/http-useragent/lib';
 use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
