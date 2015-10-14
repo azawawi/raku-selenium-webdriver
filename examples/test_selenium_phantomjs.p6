@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 
 use v6;
-use HTTP::Tinyish;
+use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
 
@@ -39,20 +39,25 @@ sub new_session {
 
 
 sub execute_command(Str $method, Str $command, Hash $params) {
-say $method;
+    say "POST $command with params " ~ $params.perl;
+
     my $response;
     if ( $method eq "POST" ) {
 
-        my $http = HTTP::Tinyish.new;
         my $url = "$(URL)$command";
         my $content = to-json($params);
 
-        $response = $http.post:
-          $url,
-          headers => { "Content-Type" => "application/json;charset=UTF-8", "Content-Length" => $content.chars },
-          content => $content,
-        ;
-        say "done!";
+        my $request = HTTP::Request.new(
+          :POST($url),
+          :Content-Length($content.chars)
+          :Content-Type("application/json;charset=UTF-8")
+        );
+        $request.add-content($content);
+        say "\nRequest is:\n" ~ $request.Str;
+
+        my $ua = HTTP::UserAgent.new;
+        $response = $ua.request($request);
+        say $response.perl;
     }
     elsif ( $method eq "GET" ) {
         $response = LWP::Simple.get( "$(URL)$command" );
@@ -63,7 +68,6 @@ say $method;
     
     my $result;
     if ( $response.defined ) {
-      say $response.perl;
         $result = from-json( $response );
     }
     else {
