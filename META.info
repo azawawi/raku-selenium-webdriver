@@ -1,0 +1,10 @@
+{
+    "name": "Selenium::WebDriver",
+    "version": "*",
+    "description": "Perl 6 bindings for Selenium WebDriver",
+    "depends": [],
+    "provides": {
+        "Selenium::WebDriver": "lib/Selenium/WebDriver.pm6"
+    },
+    "source-url": "git://github.com/azawawi/perl6-selenium-webdriver.git"
+}
