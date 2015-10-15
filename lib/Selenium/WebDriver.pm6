@@ -8,27 +8,27 @@ class Selenium::WebDriver {
   use JSON::Tiny;
   use MIME::Base64;
 
-  constant URL = "http://127.0.0.1:5555";
+  has Int         $.port is rw;
+  has Str         $.session_id is rw;
+  has Proc::Async $.process is rw;
 
-  has $.session_id;
-  has $.process;
+=begin pod
+=end pod
+  submethod BUILD( Int :$port = 5555 ) {
+    self.port = $port;
+    self.process = self.new_phantomjs_process;
 
-  method new {
-    my $process = self.new_phantomjs_process;
+    my $result = self.new_session;
+    die "Cannot instaniate session" unless $result.defined;
 
-    my $session_obj = self.new_session;
-    die "Cannot instaniate session" unless defined($session_obj);
-
-    my $session_id = $session_obj<sessionId>;
-    die "Session id is not defined" unless defined($session_id);
-
-    return self.bless(:session_id($session_id), :process($process));
+    self.session_id = $result<sessionId>;
+    die "Session id is not defined" unless self.session_id.defined;
   }
 
 =begin pod
 =end pod
   method new_phantomjs_process {
-    my $process = Proc::Async.new('phantomjs', '--webdriver=5555');
+    my $process = Proc::Async.new('phantomjs', "--webdriver=" ~ $.port);
     $process.start;
 
     return $process;
@@ -89,7 +89,7 @@ class Selenium::WebDriver {
     say "POST $command with params " ~ $params.perl;
 
     my $ua = HTTP::UserAgent.new;
-    my $url = "$(URL)$command";
+    my $url = "http://127.0.0.1:" ~ self.port ~ $command;
     my $response;
     if ( $method eq "POST" ) {
         my $content = to-json($params);
