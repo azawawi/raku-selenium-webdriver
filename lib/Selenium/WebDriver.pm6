@@ -48,7 +48,7 @@ class Selenium::WebDriver {
 =end pod
   method new_phantomjs_process {
     say "Starting phantomjs process" if $.debug;
-    my $process = Proc::Async.new('phantomjs1', "--webdriver=" ~ $.port);
+    my $process = Proc::Async.new('phantomjs', "--webdriver=" ~ $.port);
     $process.start;
 
     return $process;
