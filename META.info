@@ -2,7 +2,7 @@
     "name": "Selenium::WebDriver",
     "version": "*",
     "description": "Perl 6 bindings for Selenium WebDriver",
-    "depends": [ "HTTP::UserAgent", "JSON::Tiny", "MIME::Base64" ],
+    "depends": [ "File::Which", "HTTP::UserAgent", "JSON::Tiny", "MIME::Base64" ],
     "provides": {
         "Selenium::WebDriver": "lib/Selenium/WebDriver.pm6"
     },
