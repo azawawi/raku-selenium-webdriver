@@ -8,27 +8,47 @@ class Selenium::WebDriver {
   use JSON::Tiny;
   use MIME::Base64;
 
+  has Bool        $.debug is rw;
   has Int         $.port is rw;
   has Str         $.session_id is rw;
   has Proc::Async $.process is rw;
 
 =begin pod
 =end pod
-  submethod BUILD( Int :$port = 5555 ) {
+  submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
+    self.debug = $debug;
     self.port = $port;
     self.process = self.new_phantomjs_process;
 
-    my $result = self.new_session;
-    die "Cannot instaniate session" unless $result.defined;
+    # Try to create a new phantomjs session for n times
+    my constant MAX_ATTEMPTS = 3;
+    my $session;
+    for 1..MAX_ATTEMPTS {
+      # Try to create session
+      $session = self.new_session;
+      last if $session.defined;
 
-    self.session_id = $result<sessionId>;
+      CATCH {
+        default {
+          # Retry session creation failure after timeout
+          say "Attempt $_ to create session" if self.debug;
+          sleep 0.5;
+        }
+      }
+    }
+
+    # No session could be created
+    die "Cannot create session" unless $session.defined;
+
+    self.session_id = $session<sessionId>;
     die "Session id is not defined" unless self.session_id.defined;
   }
 
 =begin pod
 =end pod
   method new_phantomjs_process {
-    my $process = Proc::Async.new('phantomjs', "--webdriver=" ~ $.port);
+    say "Starting phantomjs process" if $.debug;
+    my $process = Proc::Async.new('phantomjs1', "--webdriver=" ~ $.port);
     $process.start;
 
     return $process;
@@ -86,9 +106,10 @@ class Selenium::WebDriver {
 =begin pod
 =end pod
   submethod execute_command(Str $method, Str $command, Hash $params) {
-    say "POST $command with params " ~ $params.perl;
+    say "POST $command with params " ~ $params.perl if self.debug;
 
     my $ua = HTTP::UserAgent.new;
+    $ua.timeout = 3;
     my $url = "http://127.0.0.1:" ~ self.port ~ $command;
     my $response;
     if ( $method eq "POST" ) {
@@ -114,7 +135,7 @@ class Selenium::WebDriver {
         $result = from-json( $response.content );
     }
     else {
-        warn "FAILED: " ~ $response.status-line;
+        warn "FAILED: " ~ $response.status-line if self.debug;
     }
 
     return $result;
