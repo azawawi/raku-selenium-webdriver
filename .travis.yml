@@ -1,3 +1,7 @@
 language: perl6
 perl6:
     - latest
+
+install:
+    - rakudobrew build-panda
+    - panda update && panda install HTTP::UserAgent JSON::Tiny MIME::Base64
