@@ -89,7 +89,20 @@ method set_url(Str $url) {
 
 =begin pod
 =end pod
-# /session/:sessionId/title
+# GET /session/:sessionId/url
+method get_url {
+  my $result = self.execute_command(
+    "GET",
+    "/session/$(self.session_id)/url",
+  );
+
+  die "get_url returned undefined response" unless $result.defined;
+  return $result<value>;
+}
+
+=begin pod
+=end pod
+# GET /session/:sessionId/title
 method get_title {
   my $result = self.execute_command(
     "GET",
@@ -102,7 +115,7 @@ method get_title {
 
 =begin pod
 =end pod
-# /session/:sessionId/source
+# GET /session/:sessionId/source
 method get_source {
   my $result = self.execute_command(
     "GET",
