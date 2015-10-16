@@ -85,6 +85,19 @@ method set_url(Str $url) {
 
 =begin pod
 =end pod
+# /session/:sessionId/title
+method get_title {
+  my $result = self.execute_command(
+    "GET",
+    "/session/$(self.session_id)/title",
+  );
+
+  die "get_title returned undefined response" unless $result.defined;
+  return $result<value>;
+}
+
+=begin pod
+=end pod
 method quit {
   $.process.kill if $.process.defined;
 };
@@ -106,7 +119,7 @@ method save_screenshot(Str $filename) {
 
 =begin pod
 =end pod
-submethod execute_command(Str $method, Str $command, Hash $params) {
+submethod execute_command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new;
