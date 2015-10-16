@@ -128,6 +128,31 @@ method get_source {
 
 =begin pod
 =end pod
+# POST /session/:sessionId/moveto
+method move_to(Str $element, Int $xoffset, Int $yoffset) {
+  return self.execute_command(
+    "POST",
+    "/session/$(self.session_id)/moveto",
+    {
+        element => $element,
+        xoffset => $xoffset,
+        yoffset => $yoffset,
+    }
+  );
+}
+
+=begin pod
+=end pod
+# POST /session/:sessionId/click
+method click {
+  return self.execute_command(
+    "POST",
+    "/session/$(self.session_id)/click",
+  );
+}
+
+=begin pod
+=end pod
 method quit {
   $.process.kill if $.process.defined;
 };
