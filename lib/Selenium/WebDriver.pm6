@@ -33,7 +33,7 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
       default {
         # Retry session creation failure after timeout
         say "Attempt $_ to create session" if self.debug;
-        sleep 0.5;
+        sleep 1;
       }
     }
   }
