@@ -59,12 +59,11 @@ method new_phantomjs_process {
   return $process;
 }
 
-
 =begin pod
 =end pod
 # POST /session
 method new_session {
-  return self.execute_command(
+  return self._execute_command(
     "POST",
     "/session",
     {
@@ -78,7 +77,7 @@ method new_session {
 =end pod
 # POST /session/:sessionId/url
 method set_url(Str $url) {
-  return self.execute_command(
+  return self._execute_command(
     "POST",
     "/session/$(self.session_id)/url",
     {
@@ -91,46 +90,28 @@ method set_url(Str $url) {
 =end pod
 # GET /session/:sessionId/url
 method get_url {
-  my $result = self.execute_command(
-    "GET",
-    "/session/$(self.session_id)/url",
-  );
-
-  die "get_url returned undefined response" unless $result.defined;
-  return $result<value>;
+  return self._execute_get( 'url' );
 }
 
 =begin pod
 =end pod
 # GET /session/:sessionId/title
 method get_title {
-  my $result = self.execute_command(
-    "GET",
-    "/session/$(self.session_id)/title",
-  );
-
-  die "get_title returned undefined response" unless $result.defined;
-  return $result<value>;
+  return self._execute_get( 'title' );
 }
 
 =begin pod
 =end pod
 # GET /session/:sessionId/source
 method get_source {
-  my $result = self.execute_command(
-    "GET",
-    "/session/$(self.session_id)/source",
-  );
-
-  die "get_source returned undefined response" unless $result.defined;
-  return $result<value>;
+  return self._execute_get( 'source' );
 }
 
 =begin pod
 =end pod
 # POST /session/:sessionId/moveto
 method move_to(Str $element, Int $xoffset, Int $yoffset) {
-  return self.execute_command(
+  return self._execute_command(
     "POST",
     "/session/$(self.session_id)/moveto",
     {
@@ -145,7 +126,7 @@ method move_to(Str $element, Int $xoffset, Int $yoffset) {
 =end pod
 # POST /session/:sessionId/click
 method click {
-  return self.execute_command(
+  return self._execute_command(
     "POST",
     "/session/$(self.session_id)/click",
   );
@@ -154,6 +135,7 @@ method click {
 =begin pod
 =end pod
 method quit {
+  #TODO kill session
   $.process.kill if $.process.defined;
 };
 
@@ -161,20 +143,19 @@ method quit {
 =end pod
 # GET /session/:sessionId/screenshot
 method get_screenshot() {
-  return self.execute_command( "GET", "/session/$(self.session_id)/screenshot", {} );
+  return self._execute_get('screenshot');
 }
 
 =begin pod
 =end pod
 method save_screenshot(Str $filename) {
   my $result = self.get_screenshot();
-  die "get_screenshot return result is not defined" unless $result.defined;
-  $filename.IO.spurt(MIME::Base64.decode( $result<value> ));
+  $filename.IO.spurt(MIME::Base64.decode( $result ));
 }
 
 =begin pod
 =end pod
-submethod execute_command(Str $method, Str $command, Hash $params = {}) {
+submethod _execute_command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new;
@@ -208,4 +189,14 @@ submethod execute_command(Str $method, Str $command, Hash $params = {}) {
   }
 
   return $result;
+}
+
+method _execute_get(Str $command) {
+  my $result = self._execute_command(
+    "GET",
+    "/session/$(self.session_id)/$command",
+  );
+
+  die "/$command returned an undefined response" unless $result.defined;
+  return $result<value>;
 }
