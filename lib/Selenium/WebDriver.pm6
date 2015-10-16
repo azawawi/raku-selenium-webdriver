@@ -49,7 +49,11 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
 =end pod
 method new_phantomjs_process {
   say "Starting phantomjs process" if $.debug;
-  my $process = Proc::Async.new('phantomjs', "--webdriver=" ~ $.port);
+  my $process = Proc::Async.new(
+    'phantomjs',
+    "--webdriver=" ~ $.port,
+    "--webdriver-loglevel=WARN"
+  );
   $process.start;
 
   return $process;
@@ -93,6 +97,19 @@ method get_title {
   );
 
   die "get_title returned undefined response" unless $result.defined;
+  return $result<value>;
+}
+
+=begin pod
+=end pod
+# /session/:sessionId/source
+method get_source {
+  my $result = self.execute_command(
+    "GET",
+    "/session/$(self.session_id)/source",
+  );
+
+  die "get_source returned undefined response" unless $result.defined;
   return $result<value>;
 }
 
