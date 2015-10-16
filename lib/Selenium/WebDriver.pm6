@@ -110,7 +110,7 @@ submethod execute_command(Str $method, Str $command, Hash $params) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new;
-  $ua.timeout = 3;
+  $ua.timeout = 5;
   my $url = "http://127.0.0.1:" ~ self.port ~ $command;
   my $response;
   if ( $method eq "POST" ) {
