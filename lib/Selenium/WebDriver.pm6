@@ -153,6 +153,37 @@ method save_screenshot(Str $filename) {
   $filename.IO.spurt(MIME::Base64.decode( $result ));
 }
 
+
+=begin pod
+=end pod
+# POST /session/:sessionId/forward
+method forward {
+  return self._execute_command(
+    "POST",
+    "/session/$(self.session_id)/forward",
+  );
+}
+
+=begin pod
+=end pod
+# POST /session/:sessionId/back
+method back {
+  return self._execute_command(
+    "POST",
+    "/session/$(self.session_id)/back",
+  );
+}
+
+=begin pod
+=end pod
+# POST /session/:sessionId/refresh
+method refresh {
+  return self._execute_command(
+    "POST",
+    "/session/$(self.session_id)/refresh",
+  );
+}
+
 =begin pod
 =end pod
 method _execute_command(Str $method, Str $command, Hash $params = {}) {
