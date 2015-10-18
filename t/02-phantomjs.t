@@ -5,7 +5,10 @@ use lib 'lib';
 
 # Methods to test
 my @methods = 'set_url', 'get_url', 'get_source', 'move_to', 'click', 'quit', 
-  'get_screenshot', 'save_screenshot', 'forward', 'back', 'refresh';
+  'get_screenshot', 'save_screenshot', 'forward', 'back', 'refresh',
+  'find_element_by_class_name', 'find_element_by_css_selector', 'find_element_by_id',
+  'find_element_by_name', 'find_element_by_link_text', 'find_element_by_partial_link_text',
+  'find_element_by_tag_name', 'find_element_by_xpath';
 
 plan @methods.elems + 2;
 

@@ -192,6 +192,68 @@ method refresh {
 
 =begin pod
 =end pod
+# POST /session/:sessionId/element
+method _find_element(Str $using, Str $value) {
+  return self._execute_command(
+    "POST",
+    "/session/$(self.session_id)/element",
+    {
+      'using' => $using,
+      'value' => $value,
+    }
+  );
+}
+
+=begin pod
+=end pod
+method find_element_by_class_name(Str $class_name) {
+  return self._find_element( 'class name', $class_name );
+}
+
+=begin pod
+=end pod
+method find_element_by_css_selector(Str $css_selector) {
+  return self._find_element( 'css selector', $css_selector );
+}
+
+=begin pod
+=end pod
+method find_element_by_id(Str $id) {
+  return self._find_element( 'id', $id );
+}
+
+=begin pod
+=end pod
+method find_element_by_name(Str $name) {
+  return self._find_element( 'id', $name );
+}
+
+=begin pod
+=end pod
+method find_element_by_link_text(Str $link_text) {
+  return self._find_element( 'link text', $link_text );
+}
+
+=begin pod
+=end pod
+method find_element_by_partial_link_text(Str $partial_link_text) {
+  return self._find_element( 'partial link text', $partial_link_text );
+}
+
+=begin pod
+=end pod
+method find_element_by_tag_name(Str $tag_name) {
+  return self._find_element( 'tag name', $tag_name );
+}
+
+=begin pod
+=end pod
+method find_element_by_xpath(Str $xpath) {
+  return self._find_element( 'tag name', $xpath );
+}
+
+=begin pod
+=end pod
 method _execute_command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
@@ -200,15 +262,15 @@ method _execute_command(Str $method, Str $command, Hash $params = {}) {
   my $url = "http://127.0.0.1:" ~ self.port ~ $command;
   my $response;
   if ( $method eq "POST" ) {
-      my $content = to-json($params);
-      my $request = HTTP::Request.new(
-        :POST($url),
-        :Content-Length($content.chars),
-        :Content-Type("application/json;charset=UTF-8"),
-        :Connection("close"),
-      );
-      $request.add-content($content);
-      $response = $ua.request($request);
+    my $content = to-json($params);
+    my $request = HTTP::Request.new(
+      :POST($url),
+      :Content-Length($content.chars),
+      :Content-Type("application/json;charset=UTF-8"),
+      :Connection("close"),
+    );
+    $request.add-content($content);
+    $response = $ua.request($request);
   }
   elsif ( $method eq "GET" ) {
     $response = $ua.get( $url );

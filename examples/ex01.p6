@@ -14,5 +14,12 @@ say "Source length: " ~ $driver.get_source.chars;
 $driver.move_to('', 100, 100);
 $driver.click;
 
+my $o = $driver.find_element_by_tag_name( 'button' );
+say $o.perl;
+
 $driver.save_screenshot('test.png');
-$driver.quit;
+
+LEAVE {
+  say 'Cleanup';
+  $driver.quit if $driver.defined;
+}
