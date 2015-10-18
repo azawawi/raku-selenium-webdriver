@@ -11,11 +11,13 @@ say "Title: "         ~ $driver.get_title;
 say "URL: "           ~ $driver.get_url;
 say "Source length: " ~ $driver.get_source.chars;
 
-$driver.move_to('', 100, 100);
-$driver.click;
+my $search_box = $driver.find_element_by_name( 'q' );
+$search_box.send_keys("Perl 6\x0007");
+$search_box.submit;
 
-say $driver.find_element_by_name( 'q' ).perl;
-say $driver.find_element_by_id( 'lst-ib' ).perl;
+sleep 1;
+
+say "Title (After search): "         ~ $driver.get_title;
 
 $driver.save_screenshot('test.png');
 
