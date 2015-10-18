@@ -7,8 +7,8 @@
 
 use v6;
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 unit class Selenium::WebDriver::Wire;
 
 use HTTP::UserAgent;
@@ -21,8 +21,8 @@ has Int         $.port       is rw;
 has Str         $.session-id is rw;
 has Proc::Async $.process    is rw;
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   self.debug   = $debug;
   self.port    = $port;
@@ -52,8 +52,8 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   die "Session id is not defined" unless self.session-id.defined;
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method new-phantomjs-process {
   say "Starting phantomjs process" if $.debug;
   my $process = Proc::Async.new(
@@ -66,8 +66,8 @@ method new-phantomjs-process {
   return $process;
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session
 method new-session {
   return self._execute-command(
@@ -80,8 +80,8 @@ method new-session {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/url
 method set-url(Str $url) {
   return self._execute-command(
@@ -93,29 +93,29 @@ method set-url(Str $url) {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # GET /session/:sessionId/url
 method get-url {
   return self._execute-get( 'url' );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # GET /session/:sessionId/title
 method get-title {
   return self._execute-get( 'title' );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # GET /session/:sessionId/source
 method get-source {
   return self._execute-get( 'source' );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/moveto
 method move-to(Str $element, Int $xoffset, Int $yoffset) {
   return self._execute-command(
@@ -129,8 +129,8 @@ method move-to(Str $element, Int $xoffset, Int $yoffset) {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/click
 method click {
   return self._execute-command(
@@ -139,30 +139,30 @@ method click {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method quit {
   #TODO kill session
   $.process.kill if $.process.defined;
 };
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # GET /session/:sessionId/screenshot
 method get-screenshot() {
   return self._execute-get('screenshot');
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method save-screenshot(Str $filename) {
   my $result = self.get-screenshot();
   $filename.IO.spurt(MIME::Base64.decode( $result ));
 }
 
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/forward
 method forward {
   return self._execute-command(
@@ -171,8 +171,8 @@ method forward {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/back
 method back {
   return self._execute-command(
@@ -181,8 +181,8 @@ method back {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/refresh
 method refresh {
   return self._execute-command(
@@ -191,8 +191,8 @@ method refresh {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 # POST /session/:sessionId/element
 method _find-element(Str $using, Str $value) {
   my $result = self._execute-command(
@@ -211,56 +211,56 @@ method _find-element(Str $using, Str $value) {
   );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-class(Str $class) {
   return self._find-element( 'class name', $class );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-css(Str $selector) {
   return self._find-element( 'css selector', $selector );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-id(Str $id) {
   return self._find-element( 'id', $id );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-name(Str $name) {
   return self._find-element( 'name', $name );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-link-text(Str $link-text) {
   return self._find-element( 'link text', $link-text );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-partial-link-text(Str $partial-link-text) {
   return self._find-element( 'partial link text', $partial-link-text );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-tag-name(Str $tag-name) {
   return self._find-element( 'tag name', $tag-name );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method find-element-by-xpath(Str $xpath) {
   return self._find-element( 'xpath', $xpath );
 }
 
-=begin pod
-=end pod
+=begin markdown
+=end markdown
 method _execute-command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
