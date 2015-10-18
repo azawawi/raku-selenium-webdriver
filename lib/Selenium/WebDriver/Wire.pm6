@@ -15,7 +15,6 @@ use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
 use Selenium::WebDriver::WebElement;
-use Selenium::WebDriver::Keys;
 
 has Bool        $.debug is rw;
 has Int         $.port is rw;
