@@ -58,7 +58,7 @@ method new_phantomjs_process {
   my $process = Proc::Async.new(
     'phantomjs',
     "--webdriver=" ~ $.port,
-    "--webdriver-loglevel=WARN"
+    "--webdriver-loglevel=" ~ ($.debug ?? "DEBUG" !! "WARN"),
   );
   $process.start;
 
