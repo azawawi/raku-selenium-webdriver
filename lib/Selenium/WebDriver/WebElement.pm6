@@ -8,18 +8,18 @@ has $.driver is rw;
 
 # POST /session/:sessionId/element/:id/click
 method click {
-  return $.driver._execute_command(
+  return $.driver._execute-command(
     "POST",
-    "/session/$($.driver.session_id)/element/$($.id)/click",
+    "/session/$($.driver.session-id)/element/$($.id)/click",
   );
 }
 
 # POST /session/:sessionId/element/:id/value
-method send_keys(Str $keys) {
-  say "/session/$($.driver.session_id)/element/$($.id)/value";
-  return $.driver._execute_command(
+method send-keys(Str $keys) {
+  say "/session/$($.driver.session-id)/element/$($.id)/value";
+  return $.driver._execute-command(
     "POST",
-    "/session/$($.driver.session_id)/element/$($.id)/value",
+    "/session/$($.driver.session-id)/element/$($.id)/value",
     {
       "value" => $keys.split('');
     }
@@ -28,26 +28,26 @@ method send_keys(Str $keys) {
 
 # POST /session/:sessionId/element/:id/submit
 method submit {
-  return $.driver._execute_command(
+  return $.driver._execute-command(
     "POST",
-    "/session/$($.driver.session_id)/element/$($.id)/submit",
+    "/session/$($.driver.session-id)/element/$($.id)/submit",
   );
 }
 
 # GET /session/:sessionId/element/:id/text
-method get_text {
-  return $.driver._execute_get(
+method get-text {
+  return $.driver._execute-get(
     "element/$($.id)/text",
   );
 }
 
-method get_value {
+method get-value {
   !!!
 }
 
 method clear {
-  return $.driver._execute_command(
+  return $.driver._execute-command(
     "POST",
-    "/session/$($.driver.session_id)/element/$($.id)/clear",
+    "/session/$($.driver.session-id)/element/$($.id)/clear",
   );
 }

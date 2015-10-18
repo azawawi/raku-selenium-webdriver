@@ -18,7 +18,7 @@ use Selenium::WebDriver::WebElement;
 
 has Bool        $.debug is rw;
 has Int         $.port is rw;
-has Str         $.session_id is rw;
+has Str         $.session-id is rw;
 has Proc::Async $.process is rw;
 
 =begin pod
@@ -26,14 +26,14 @@ has Proc::Async $.process is rw;
 submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   self.debug   = $debug;
   self.port    = $port;
-  self.process = self.new_phantomjs_process;
+  self.process = self.new-phantomjs-process;
 
   # Try to create a new phantomjs session for n times
-  my constant MAX_ATTEMPTS = 3;
+  my constant MAX-ATTEMPTS = 3;
   my $session;
-  for 1..MAX_ATTEMPTS {
+  for 1..MAX-ATTEMPTS {
     # Try to create session
-    $session = self.new_session;
+    $session = self.new-session;
     last if $session.defined;
 
     CATCH {
@@ -46,15 +46,15 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   }
 
   # No session could be created
-  die "Cannot obtain a session after $(MAX_ATTEMPTS) attempts" unless $session.defined;
+  die "Cannot obtain a session after $(MAX-ATTEMPTS) attempts" unless $session.defined;
 
-  self.session_id = $session<sessionId>;
-  die "Session id is not defined" unless self.session_id.defined;
+  self.session-id = $session<sessionId>;
+  die "Session id is not defined" unless self.session-id.defined;
 }
 
 =begin pod
 =end pod
-method new_phantomjs_process {
+method new-phantomjs-process {
   say "Starting phantomjs process" if $.debug;
   my $process = Proc::Async.new(
     'phantomjs',
@@ -69,8 +69,8 @@ method new_phantomjs_process {
 =begin pod
 =end pod
 # POST /session
-method new_session {
-  return self._execute_command(
+method new-session {
+  return self._execute-command(
     "POST",
     "/session",
     {
@@ -83,10 +83,10 @@ method new_session {
 =begin pod
 =end pod
 # POST /session/:sessionId/url
-method set_url(Str $url) {
-  return self._execute_command(
+method set-url(Str $url) {
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/url",
+    "/session/$(self.session-id)/url",
     {
         url => $url,
     }
@@ -96,31 +96,31 @@ method set_url(Str $url) {
 =begin pod
 =end pod
 # GET /session/:sessionId/url
-method get_url {
-  return self._execute_get( 'url' );
+method get-url {
+  return self._execute-get( 'url' );
 }
 
 =begin pod
 =end pod
 # GET /session/:sessionId/title
-method get_title {
-  return self._execute_get( 'title' );
+method get-title {
+  return self._execute-get( 'title' );
 }
 
 =begin pod
 =end pod
 # GET /session/:sessionId/source
-method get_source {
-  return self._execute_get( 'source' );
+method get-source {
+  return self._execute-get( 'source' );
 }
 
 =begin pod
 =end pod
 # POST /session/:sessionId/moveto
-method move_to(Str $element, Int $xoffset, Int $yoffset) {
-  return self._execute_command(
+method move-to(Str $element, Int $xoffset, Int $yoffset) {
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/moveto",
+    "/session/$(self.session-id)/moveto",
     {
         element => $element,
         xoffset => $xoffset,
@@ -133,9 +133,9 @@ method move_to(Str $element, Int $xoffset, Int $yoffset) {
 =end pod
 # POST /session/:sessionId/click
 method click {
-  return self._execute_command(
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/click",
+    "/session/$(self.session-id)/click",
   );
 }
 
@@ -149,14 +149,14 @@ method quit {
 =begin pod
 =end pod
 # GET /session/:sessionId/screenshot
-method get_screenshot() {
-  return self._execute_get('screenshot');
+method get-screenshot() {
+  return self._execute-get('screenshot');
 }
 
 =begin pod
 =end pod
-method save_screenshot(Str $filename) {
-  my $result = self.get_screenshot();
+method save-screenshot(Str $filename) {
+  my $result = self.get-screenshot();
   $filename.IO.spurt(MIME::Base64.decode( $result ));
 }
 
@@ -165,9 +165,9 @@ method save_screenshot(Str $filename) {
 =end pod
 # POST /session/:sessionId/forward
 method forward {
-  return self._execute_command(
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/forward",
+    "/session/$(self.session-id)/forward",
   );
 }
 
@@ -175,9 +175,9 @@ method forward {
 =end pod
 # POST /session/:sessionId/back
 method back {
-  return self._execute_command(
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/back",
+    "/session/$(self.session-id)/back",
   );
 }
 
@@ -185,19 +185,19 @@ method back {
 =end pod
 # POST /session/:sessionId/refresh
 method refresh {
-  return self._execute_command(
+  return self._execute-command(
     "POST",
-    "/session/$(self.session_id)/refresh",
+    "/session/$(self.session-id)/refresh",
   );
 }
 
 =begin pod
 =end pod
 # POST /session/:sessionId/element
-method _find_element(Str $using, Str $value) {
-  my $result = self._execute_command(
+method _find-element(Str $using, Str $value) {
+  my $result = self._execute-command(
     "POST",
-    "/session/$(self.session_id)/element",
+    "/session/$(self.session-id)/element",
     {
       'using' => $using,
       'value' => $value,
@@ -213,55 +213,55 @@ method _find_element(Str $using, Str $value) {
 
 =begin pod
 =end pod
-method find_element_by_class(Str $class) {
-  return self._find_element( 'class name', $class );
+method find-element-by-class(Str $class) {
+  return self._find-element( 'class name', $class );
 }
 
 =begin pod
 =end pod
-method find_element_by_css(Str $selector) {
-  return self._find_element( 'css selector', $selector );
+method find-element-by-css(Str $selector) {
+  return self._find-element( 'css selector', $selector );
 }
 
 =begin pod
 =end pod
-method find_element_by_id(Str $id) {
-  return self._find_element( 'id', $id );
+method find-element-by-id(Str $id) {
+  return self._find-element( 'id', $id );
 }
 
 =begin pod
 =end pod
-method find_element_by_name(Str $name) {
-  return self._find_element( 'name', $name );
+method find-element-by-name(Str $name) {
+  return self._find-element( 'name', $name );
 }
 
 =begin pod
 =end pod
-method find_element_by_link_text(Str $link_text) {
-  return self._find_element( 'link text', $link_text );
+method find-element-by-link-text(Str $link-text) {
+  return self._find-element( 'link text', $link-text );
 }
 
 =begin pod
 =end pod
-method find_element_by_partial_link_text(Str $partial_link_text) {
-  return self._find_element( 'partial link text', $partial_link_text );
+method find-element-by-partial-link-text(Str $partial-link-text) {
+  return self._find-element( 'partial link text', $partial-link-text );
 }
 
 =begin pod
 =end pod
-method find_element_by_tag_name(Str $tag_name) {
-  return self._find_element( 'tag name', $tag_name );
+method find-element-by-tag-name(Str $tag-name) {
+  return self._find-element( 'tag name', $tag-name );
 }
 
 =begin pod
 =end pod
-method find_element_by_xpath(Str $xpath) {
-  return self._find_element( 'xpath', $xpath );
+method find-element-by-xpath(Str $xpath) {
+  return self._find-element( 'xpath', $xpath );
 }
 
 =begin pod
 =end pod
-method _execute_command(Str $method, Str $command, Hash $params = {}) {
+method _execute-command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new;
@@ -306,10 +306,10 @@ method _execute_command(Str $method, Str $command, Hash $params = {}) {
   return $result;
 }
 
-method _execute_get(Str $command) {
-  my $result = self._execute_command(
+method _execute-get(Str $command) {
+  my $result = self._execute-command(
     "GET",
-    "/session/$(self.session_id)/$command",
+    "/session/$(self.session-id)/$command",
   );
 
   die "/$command returned an undefined response" unless $result.defined;

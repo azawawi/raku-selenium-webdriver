@@ -6,21 +6,21 @@ use Selenium::WebDriver::PhantomJS;
 
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
-$driver.set_url("http://google.com");
-say "Title: "         ~ $driver.get_title;
-say "URL: "           ~ $driver.get_url;
-say "Source length: " ~ $driver.get_source.chars;
+$driver.set-url("http://google.com");
+say "Title: "         ~ $driver.get-title;
+say "URL: "           ~ $driver.get-url;
+say "Source length: " ~ $driver.get-source.chars;
 
-my $search_box = $driver.find_element_by_name( 'q' );
-$search_box.send_keys("Perl 6\x0007");
+my $search-box = $driver.find-element-by-name( 'q' );
+$search-box.send-keys("Perl 6\x0007");
 sleep 1;
-say "Search box contents: "  ~ $search_box.get_text.perl;
-$search_box.submit;
+say "Search box contents: "  ~ $search-box.get-text.perl;
+$search-box.submit;
 
 sleep 1;
-say "Title (After search): " ~ $driver.get_title;
+say "Title (After search): " ~ $driver.get-title;
 
-$driver.save_screenshot('test.png');
+$driver.save-screenshot('test.png');
 
 LEAVE {
   say 'Cleanup';
