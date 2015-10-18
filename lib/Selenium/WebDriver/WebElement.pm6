@@ -34,8 +34,11 @@ method submit {
   );
 }
 
+# GET /session/:sessionId/element/:id/text
 method get_text {
-  !!!
+  return $.driver._execute_get(
+    "element/$($.id)/text",
+  );
 }
 
 method get_value {
@@ -43,5 +46,8 @@ method get_value {
 }
 
 method clear {
-  !!!
+  return $.driver._execute_command(
+    "POST",
+    "/session/$($.driver.session_id)/element/$($.id)/clear",
+  );
 }
