@@ -17,8 +17,8 @@ has Proc::Async $.process is rw;
 =begin pod
 =end pod
 submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
-  self.debug = $debug;
-  self.port = $port;
+  self.debug   = $debug;
+  self.port    = $port;
   self.process = self.new_phantomjs_process;
 
   # Try to create a new phantomjs session for n times
@@ -39,7 +39,7 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   }
 
   # No session could be created
-  die "Cannot create session" unless $session.defined;
+  die "Cannot obtain a session after $(MAX_ATTEMPTS) attempts" unless $session.defined;
 
   self.session_id = $session<sessionId>;
   die "Session id is not defined" unless self.session_id.defined;
@@ -155,7 +155,7 @@ method save_screenshot(Str $filename) {
 
 =begin pod
 =end pod
-submethod _execute_command(Str $method, Str $command, Hash $params = {}) {
+method _execute_command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new;
