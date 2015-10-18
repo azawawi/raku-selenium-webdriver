@@ -14,6 +14,7 @@ unit class Selenium::WebDriver::Wire;
 use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
+use Selenium::WebDriver::WebElement;
 
 has Bool        $.debug is rw;
 has Int         $.port is rw;
@@ -202,8 +203,12 @@ method _find_element(Str $using, Str $value) {
       'value' => $value,
     }
   );
-  die "strategy '$using' returned an undefined response" unless $result.defined;
-  return $result<value>;
+
+  return unless $result.defined;
+  return Selenium::WebDriver::WebElement.new(
+    :id( $result<value><ELEMENT> ),
+    :driver( self )
+  );
 }
 
 =begin pod

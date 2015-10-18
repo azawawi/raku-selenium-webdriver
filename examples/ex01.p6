@@ -14,8 +14,8 @@ say "Source length: " ~ $driver.get_source.chars;
 $driver.move_to('', 100, 100);
 $driver.click;
 
-my $element = $driver.find_element_by_name( 'q' );
-say $element.perl if $element.defined;
+say $driver.find_element_by_name( 'q' ).perl;
+say $driver.find_element_by_id( 'lst-ib' ).perl;
 
 $driver.save_screenshot('test.png');
 
