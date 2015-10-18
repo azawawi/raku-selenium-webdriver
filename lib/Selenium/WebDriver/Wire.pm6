@@ -16,10 +16,10 @@ use JSON::Tiny;
 use MIME::Base64;
 use Selenium::WebDriver::WebElement;
 
-has Bool        $.debug is rw;
-has Int         $.port is rw;
+has Bool        $.debug      is rw;
+has Int         $.port       is rw;
 has Str         $.session-id is rw;
-has Proc::Async $.process is rw;
+has Proc::Async $.process    is rw;
 
 =begin pod
 =end pod

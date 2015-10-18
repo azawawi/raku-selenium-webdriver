@@ -14,7 +14,7 @@ say "Source length: " ~ $driver.get-source.chars;
 
 my $search-box = $driver.find-element-by-name( 'q' );
 $search-box.send-keys("Perl 6");
-$search-box.send-keys(%KEYS<ENTER>);
+$search-box.send-keys(%Keys<ENTER>);
 say "Search box contents: "  ~ $search-box.get-text.perl;
 $search-box.submit;
 
