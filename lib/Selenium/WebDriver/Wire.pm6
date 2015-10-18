@@ -208,14 +208,14 @@ method _find_element(Str $using, Str $value) {
 
 =begin pod
 =end pod
-method find_element_by_class_name(Str $class_name) {
-  return self._find_element( 'class name', $class_name );
+method find_element_by_class(Str $class) {
+  return self._find_element( 'class name', $class );
 }
 
 =begin pod
 =end pod
-method find_element_by_css_selector(Str $css_selector) {
-  return self._find_element( 'css selector', $css_selector );
+method find_element_by_css(Str $selector) {
+  return self._find_element( 'css selector', $selector );
 }
 
 =begin pod
