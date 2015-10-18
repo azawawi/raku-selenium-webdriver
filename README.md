@@ -1,5 +1,4 @@
-Selenium::WebDriver
-===============
+## Selenium::WebDriver
 
 [![Build Status](https://travis-ci.org/azawawi/perl6-selenium-webdriver.svg?branch=master)](https://travis-ci.org/azawawi/perl6-selenium-webdriver)
 
@@ -11,9 +10,9 @@ This provides the Perl 6 bindings for Selenium WebDriver.
 ## Example
 
 ```Perl6
-use Selenium::WebDriver;
+use Selenium::WebDriver::PhantomJS;
 
-my $driver = Selenium::WebDriver.new;
+my $driver = Selenium::WebDriver::PhantomJS;
 $driver.set_url("http://google.com");
 say "Title: "         ~ $driver.get_title;
 say "URL: "           ~ $driver.get_url;
@@ -23,12 +22,20 @@ $driver.quit;
 
 ```
 
-## NOTES
+## PhantomJS
+
+### Linux/Debian
 
 To install phantomjs on debian, please type the following:
 ```
 $ sudo apt-get install phantomjs
 ```
+
+### Windows
+
+To install phantomjs on windows, please download a copy from
+http://phantomjs.org/ and then make it available in your PATH environment
+variable.
 
 ## Installation
 

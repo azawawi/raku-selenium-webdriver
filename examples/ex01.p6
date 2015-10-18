@@ -2,9 +2,9 @@
 
 use v6;
 use lib 'lib';
-use Selenium::WebDriver;
+use Selenium::WebDriver::PhantomJS;
 
-my $driver = Selenium::WebDriver.new;
+my $driver = Selenium::WebDriver::PhantomJS.new;
 
 $driver.set_url("http://google.com");
 say "Title: "         ~ $driver.get_title;

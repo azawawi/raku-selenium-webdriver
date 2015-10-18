@@ -5,8 +5,8 @@ use lib 'lib';
 
 plan 2;
 
-use Selenium::WebDriver;
-ok 1, "'use Selenium::WebDriver' worked!";
+use Selenium::WebDriver::PhantomJS;
+ok 1, "'use Selenium::WebDriver::PhantomJS' worked!";
 
 {
   # Skip tests if the electron executable is not found
@@ -17,7 +17,7 @@ ok 1, "'use Selenium::WebDriver' worked!";
   }
 }
 
-my $driver = Selenium::WebDriver.new;
-ok $driver, "Selenium::WebDriver.new worked";
+my $driver = Selenium::WebDriver::PhantomJS.new;
+ok $driver, "Selenium::WebDriver::PhantomJS.new worked";
 
 $driver.quit;
