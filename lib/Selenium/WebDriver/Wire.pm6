@@ -194,7 +194,7 @@ method refresh {
 =end pod
 # POST /session/:sessionId/element
 method _find_element(Str $using, Str $value) {
-  return self._execute_command(
+  my $result = self._execute_command(
     "POST",
     "/session/$(self.session_id)/element",
     {
@@ -202,6 +202,8 @@ method _find_element(Str $using, Str $value) {
       'value' => $value,
     }
   );
+  die "strategy '$using' returned an undefined response" unless $result.defined;
+  return $result<value>;
 }
 
 =begin pod
@@ -274,7 +276,7 @@ method _execute_command(Str $method, Str $command, Hash $params = {}) {
 
     CATCH {
       default {
-        say $_;
+        say "Error: $_" if self.debug;
       }
     }
   }

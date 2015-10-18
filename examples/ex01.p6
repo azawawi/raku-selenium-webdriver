@@ -14,8 +14,8 @@ say "Source length: " ~ $driver.get_source.chars;
 $driver.move_to('', 100, 100);
 $driver.click;
 
-my $o = $driver.find_element_by_name( 'q' );
-say $o<value>.perl if $o.defined && $o<value>.defined;
+my $element = $driver.find_element_by_name( 'q' );
+say $element.perl if $element.defined;
 
 $driver.save_screenshot('test.png');
 
