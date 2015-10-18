@@ -9,7 +9,7 @@ use Selenium::WebDriver::PhantomJS;
 ok 1, "'use Selenium::WebDriver::PhantomJS' worked!";
 
 {
-  # Skip tests if the electron executable is not found
+  # Skip tests if phantomjs is not found
   use File::Which;
   unless which('phantomjs') {
     skip-rest("phantomjs is not installed. skipping tests...");
