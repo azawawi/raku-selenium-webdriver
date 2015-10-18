@@ -15,7 +15,7 @@ $driver.move_to('', 100, 100);
 $driver.click;
 
 my $o = $driver.find_element_by_name( 'q' );
-say $o.perl;
+say $o<value>.perl if $o.defined && $o<value>.defined;
 
 $driver.save_screenshot('test.png');
 

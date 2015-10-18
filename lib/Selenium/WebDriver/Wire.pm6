@@ -225,7 +225,7 @@ method find_element_by_id(Str $id) {
 =begin pod
 =end pod
 method find_element_by_name(Str $name) {
-  return self._find_element( 'id', $name );
+  return self._find_element( 'name', $name );
 }
 
 =begin pod
@@ -249,7 +249,7 @@ method find_element_by_tag_name(Str $tag_name) {
 =begin pod
 =end pod
 method find_element_by_xpath(Str $xpath) {
-  return self._find_element( 'tag name', $xpath );
+  return self._find_element( 'xpath', $xpath );
 }
 
 =begin pod
