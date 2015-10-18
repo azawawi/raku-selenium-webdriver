@@ -3,6 +3,7 @@
 use v6;
 use lib 'lib';
 use Selenium::WebDriver::PhantomJS;
+use Selenium::WebDriver::Keys;
 
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
@@ -12,7 +13,8 @@ say "URL: "           ~ $driver.get-url;
 say "Source length: " ~ $driver.get-source.chars;
 
 my $search-box = $driver.find-element-by-name( 'q' );
-$search-box.send-keys("Perl 6\x0007");
+$search-box.send-keys("Perl 6");
+$search-box.send-keys(%KEYS<ENTER>);
 say "Search box contents: "  ~ $search-box.get-text.perl;
 $search-box.submit;
 
