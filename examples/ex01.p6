@@ -13,11 +13,9 @@ say "Source length: " ~ $driver.get-source.chars;
 
 my $search-box = $driver.find-element-by-name( 'q' );
 $search-box.send-keys("Perl 6\x0007");
-sleep 1;
 say "Search box contents: "  ~ $search-box.get-text.perl;
 $search-box.submit;
 
-sleep 1;
 say "Title (After search): " ~ $driver.get-title;
 
 $driver.save-screenshot('test.png');
