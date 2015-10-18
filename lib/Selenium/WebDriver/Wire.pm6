@@ -271,6 +271,12 @@ method _execute_command(Str $method, Str $command, Hash $params = {}) {
     );
     $request.add-content($content);
     $response = $ua.request($request);
+
+    CATCH {
+      default {
+        say $_;
+      }
+    }
   }
   elsif ( $method eq "GET" ) {
     $response = $ua.get( $url );
@@ -278,6 +284,9 @@ method _execute_command(Str $method, Str $command, Hash $params = {}) {
   else {
     die qq{Unknown method "$method"};
   }
+
+  # Since we didnt get a response here, return nothing
+  return unless $response.defined;
 
   my $result;
   if ( $response.is-success ) {
