@@ -13,14 +13,14 @@ use Selenium::WebDriver::Keys;
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
 # Navigate to google.com
-$driver.url("http://google.com");
-ok $driver.title ~~ "Google", "Google in title";
-ok $driver.url ~~ / ^ 'http://' .+? 'google'/, "google.com in selected url";
+$driver.url( "http://google.com" );
+ok $driver.title ~~ / 'Google' /,                "Google in title";
+ok $driver.url   ~~ / ^ 'http://' .+? 'google'/, "google.com in url";
 
 # Find search box and then type "Perl 6" in it
 my $search-box = $driver.find-element-by-name( 'q' );
-$search-box.send-keys("Perl 6");
-$search-box.send-keys(%Keys<ENTER>);
+$search-box.send-keys( "Perl 6" );
+$search-box.send-keys( %Keys<ENTER> );
 
 ok $search-box.tag-name eq 'input', "Search box must be an <input>";
 ok $search-box.enabled,             "Search box is enabled";
@@ -29,11 +29,11 @@ ok $search-box.enabled,             "Search box is enabled";
 $search-box.submit;
 
 # Verify that our submission worked
-ok $driver.title ~~ /'Perl 6'/, "Perl 6 in search results page";
+ok $driver.title ~~ / 'Perl 6' /,   "Perl 6 in search results page";
 
 # Take a screenshot
 my $filename = 'output.png';
-$driver.save-screenshot($filename);
+$driver.save-screenshot( $filename );
 ok $filename.IO ~~ :e, "$filename exists";
 
 LEAVE {
