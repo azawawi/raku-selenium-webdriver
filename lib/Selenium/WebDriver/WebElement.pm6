@@ -16,7 +16,6 @@ method click {
 
 # POST /session/:sessionId/element/:id/value
 method send-keys(Str $keys) {
-  say "/session/$($.driver.session-id)/element/$($.id)/value";
   return $.driver._execute-command(
     "POST",
     "/session/$($.driver.session-id)/element/$($.id)/value",
