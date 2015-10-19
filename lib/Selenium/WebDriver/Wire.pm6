@@ -148,6 +148,37 @@ method status returns Hash {
   return self._get( 'status' );
 }
 
+# POST /session/:sessionId/execute
+=begin markdown
+
+    my $script = q{
+      return arguments[0] + arguments[1];
+    };
+    my $result = $driver.execute( $script, [1, 2] );
+
+=end markdown
+method execute(Str $script, Array $args = []) {
+  my $result = self._post( 'execute', { script => $script, args => $args } );
+  return unless $result.defined;
+  return $result<value>;
+}
+
+# POST /session/:sessionId/execute_async
+=begin markdown
+
+    my $script = q{
+      var callback = arguments[arguments.length-1];
+      callback( arguments[0] + arguments[1] );
+    };
+    my $result = $driver.execute-async( $script, [1, 2] );
+
+=end markdown
+method execute-async(Str $script, Array $args = []) {
+  my $result = self._post( 'execute_async', { script => $script, args => $args } );
+  return unless $result.defined;
+  return $result<value>;
+}
+
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url

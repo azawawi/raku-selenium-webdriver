@@ -12,7 +12,7 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'find-element-by-xpath', 'sessions', 'capabilities',
   'script-timeout', 'implicit-timeout', 'page-load-timeout',
   'window-handle', 'window-handles', 'status',
-  'async-script-timeout', 'implicit-wait-timeout';
+  'async-script-timeout', 'implicit-wait-timeout', 'execute', 'execute-async';
 
 plan @methods.elems + 9;
 
