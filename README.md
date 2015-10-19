@@ -13,16 +13,18 @@ This provides the Perl 6 bindings for Selenium WebDriver.
 use Selenium::WebDriver::PhantomJS;
 
 my $driver = Selenium::WebDriver::PhantomJS;
-$driver.set_url("http://google.com");
-say "Title: "         ~ $driver.get_title;
-say "URL: "           ~ $driver.get_url;
-say "Source length: " ~ $driver.get_source.chars;
+$driver.url("http://google.com");
+say "Title: "         ~ $driver.title;
+say "URL: "           ~ $driver.url;
+say "Source length: " ~ $driver.source.chars;
 $driver.save_screenshot('test.png');
 $driver.quit;
 
 ```
 
-## PhantomJS
+For more examples, please checkout the [examples](http://examples/) folder.
+
+## PhantomJS Installation
 
 ### Linux/Debian
 
@@ -36,6 +38,12 @@ $ sudo apt-get install phantomjs
 To install phantomjs on windows, please download a copy from
 http://phantomjs.org/ and then make it available in your PATH environment
 variable.
+
+### Travis CI
+
+Travis CI comes with preinstalled phantomjs
+
+http://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-PhantomJS
 
 ## Installation
 
