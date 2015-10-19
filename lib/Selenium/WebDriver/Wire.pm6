@@ -179,6 +179,31 @@ method execute-async(Str $script, Array $args = []) {
   return $result<value>;
 }
 
+# GET /session/:sessionId/ime/available_engines
+method ime-available-engines returns Array {
+  return self._get( 'ime/available_engines' );
+}
+
+# GET /session/:sessionId/ime/active_engine
+method ime-active-engine returns Str {
+  return self._get( 'ime/active_engine' );
+}
+
+# GET /session/:sessionId/ime/activated
+method ime-activated returns Bool {
+  return self._get( 'ime/activated' );
+}
+
+# POST /session/:sessionId/ime/deactivate
+method ime-deactivate {
+  return self.post( 'ime/deactivate' );
+}
+
+# POST /session/:sessionId/ime/activate
+method ime-activate(Str $engine) {
+  return self.post( 'ime/activate', { engine => $engine } );
+}
+
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url
@@ -340,6 +365,12 @@ method find-element-by-xpath(Str $xpath) {
   return self._find-element( 'xpath', $xpath );
 }
 
+method _die(Str $method, Str $command, Any $message) {
+  die ("-" x 80) ~
+    "\nError while executing '$method $command':\n" ~
+    "$message\n" ~
+    ("-" x 80);
+}
 =begin markdown
 =end markdown
 method _execute-command(Str $method, Str $command, Hash $params = {}) {
@@ -362,7 +393,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
     CATCH {
       default {
-        say "Error while executing '$method $command': $_" if self.debug;
+        self._die($method, $command, $_);
       }
     }
   }
@@ -371,7 +402,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
     CATCH {
       default {
-        say "Error while executing '$method $command': $_" if self.debug;
+        self._die($method, $command, $_);
       }
     }
   }
@@ -385,7 +416,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
     CATCH {
       default {
-        say "Error while executing '$method $command': $_" if self.debug;
+        self._die($method, $command, $_);
       }
     }
   }
