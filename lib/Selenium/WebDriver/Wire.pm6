@@ -2,7 +2,7 @@
 #
 # JSON Wire Protocol Perl 6 implementation
 # Please see 
-# https://code.google.com/p/selenium/wiki/JsonWireProtocol#/session/:sessionId/forward
+# https://code.google.com/p/selenium/wiki/JsonWireProtocol
 #
 
 use v6;
