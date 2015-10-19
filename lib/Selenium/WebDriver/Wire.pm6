@@ -97,21 +97,21 @@ multi method url(Str $url) {
 =end markdown
 # GET /session/:sessionId/url
 multi method url {
-  return self._execute-get( 'url' );
+  return self._get( 'url' );
 }
 
 =begin markdown
 =end markdown
 # GET /session/:sessionId/title
 method title {
-  return self._execute-get( 'title' );
+  return self._get( 'title' );
 }
 
 =begin markdown
 =end markdown
 # GET /session/:sessionId/source
 method source {
-  return self._execute-get( 'source' );
+  return self._get( 'source' );
 }
 
 =begin markdown
@@ -150,7 +150,7 @@ method quit {
 =end markdown
 # GET /session/:sessionId/screenshot
 method screenshot {
-  return self._execute-get('screenshot');
+  return self._get('screenshot');
 }
 
 =begin markdown
@@ -312,7 +312,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
   return $result;
 }
 
-method _execute-get(Str $command) {
+method _get(Str $command) {
   my $result = self._execute-command(
     "GET",
     "/session/$(self.session-id)/$command",
