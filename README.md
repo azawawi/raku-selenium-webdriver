@@ -22,7 +22,7 @@ $driver.quit;
 
 ```
 
-For more examples, please checkout the [examples](http://examples/) folder.
+For more examples, please checkout the [examples](examples) folder.
 
 ## PhantomJS Installation
 
