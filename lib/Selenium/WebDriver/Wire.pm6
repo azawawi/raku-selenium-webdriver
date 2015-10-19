@@ -281,12 +281,18 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
     CATCH {
       default {
-        say "Error: $_" if self.debug;
+        say "Error while executing '$method $command': $_" if self.debug;
       }
     }
   }
   elsif ( $method eq "GET" ) {
     $response = $ua.get( $url );
+
+    CATCH {
+      default {
+        say "Error while executing '$method $command': $_" if self.debug;
+      }
+    }
   }
   else {
     die qq{Unknown method "$method"};
@@ -312,6 +318,6 @@ method _execute-get(Str $command) {
     "/session/$(self.session-id)/$command",
   );
 
-  die "/$command returned an undefined response" unless $result.defined;
+  return unless $result.defined;
   return $result<value>;
 }
