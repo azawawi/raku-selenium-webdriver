@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/azawawi/perl6-selenium-webdriver.svg?branch=master)](https://travis-ci.org/azawawi/perl6-selenium-webdriver)
 
-Note: This module is experimental at the moment. The target for it to work on
-phantomjs and then Firefox, Chrome and IE web drivers.
+***Note:*** This module is a work in progress. Please see [Status](#Status)
 
-This provides the Perl 6 bindings for Selenium WebDriver.
+This module provides the [Perl 6](http://perl6.org) bindings for [Selenium WebDriver](https://code.google.com/p/selenium/wiki/JsonWireProtocol#/session/:sessionId/element/:id/value) protocol
+
 
 ## Example
 
@@ -19,10 +19,9 @@ say "URL: "           ~ $driver.url;
 say "Source length: " ~ $driver.source.chars;
 $driver.save_screenshot('test.png');
 $driver.quit;
-
 ```
 
-For more examples, please checkout the [examples](examples) folder.
+For more examples, please see the [examples](examples) folder.
 
 ## PhantomJS Installation
 
@@ -44,6 +43,18 @@ variable.
 Travis CI comes with preinstalled phantomjs
 
 http://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-PhantomJS
+
+## Status
+
+| Web Driver    | Status        |
+| ------------- | ------------- |
+| PhantomJS     | working       |
+| Firefox       | Pending       |
+| Chrome        | Pending       |
+| Safari        | Pending       |
+| Opera         | Pending       |
+| MSIE          | Pending       |
+| MSEdge        | Pending       |
 
 ## Installation
 
