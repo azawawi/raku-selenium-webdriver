@@ -123,6 +123,16 @@ method page-load-timeout(Int $timeout_millis) {
   return self._timeouts( 'page load', $timeout_millis );
 }
 
+# GET /session/:sessionId/window_handle
+method window-handle returns Str {
+  return self._get( 'window_handle' );
+}
+
+# GET /session/:sessionId/window_handles
+method window-handles returns Str {
+  return self._get( 'window_handles' );
+}
+
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url

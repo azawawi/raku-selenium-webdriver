@@ -10,7 +10,8 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'find-element-by-name', 'find-element-by-link-text',
   'find-element-by-partial-link-text', 'find-element-by-tag-name',
   'find-element-by-xpath', 'sessions', 'capabilities',
-  'script-timeout', 'implicit-timeout', 'page-load-timeout';
+  'script-timeout', 'implicit-timeout', 'page-load-timeout',
+  'window-handle', 'window-handles';
 
 plan @methods.elems + 9;
 
