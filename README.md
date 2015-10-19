@@ -31,6 +31,9 @@ To install phantomjs on debian, please type the following:
 $ sudo apt-get install phantomjs
 ```
 
+**CAUTION**: Also there are [prebuilt binaries](
+https://bitbucket.org/ariya/phantomjs/downloads) for PhantomJS for Linux if the packaged version is a bit old.
+
 ### Windows
 
 To install phantomjs on windows, please download a copy from
