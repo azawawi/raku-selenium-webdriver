@@ -96,21 +96,21 @@ method set-url(Str $url) {
 =begin markdown
 =end markdown
 # GET /session/:sessionId/url
-method get-url {
+method url {
   return self._execute-get( 'url' );
 }
 
 =begin markdown
 =end markdown
 # GET /session/:sessionId/title
-method get-title {
+method title {
   return self._execute-get( 'title' );
 }
 
 =begin markdown
 =end markdown
 # GET /session/:sessionId/source
-method get-source {
+method source {
   return self._execute-get( 'source' );
 }
 
@@ -149,14 +149,14 @@ method quit {
 =begin markdown
 =end markdown
 # GET /session/:sessionId/screenshot
-method get-screenshot() {
+method screenshot {
   return self._execute-get('screenshot');
 }
 
 =begin markdown
 =end markdown
 method save-screenshot(Str $filename) {
-  my $result = self.get-screenshot();
+  my $result = self.screenshot;
   $filename.IO.spurt(MIME::Base64.decode( $result ));
 }
 

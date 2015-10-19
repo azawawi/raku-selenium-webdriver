@@ -35,14 +35,10 @@ method submit {
 }
 
 # GET /session/:sessionId/element/:id/text
-method get-text {
+method text {
   return $.driver._execute-get(
     "element/$($.id)/text",
   );
-}
-
-method get-value {
-  !!!
 }
 
 method clear {
