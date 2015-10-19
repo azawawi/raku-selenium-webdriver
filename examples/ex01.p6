@@ -7,7 +7,7 @@ use Selenium::WebDriver::Keys;
 
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
-$driver.set-url("http://google.com");
+$driver.url("http://google.com");
 say "Title: "         ~ $driver.title;
 say "URL: "           ~ $driver.url;
 say "Source length: " ~ $driver.source.chars;

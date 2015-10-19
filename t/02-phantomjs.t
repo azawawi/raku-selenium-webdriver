@@ -4,7 +4,7 @@ use Test;
 use lib 'lib';
 
 # Methods to test
-my @methods = 'set-url', 'url', 'source', 'move-to', 'click', 'quit',
+my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'screenshot', 'save-screenshot', 'forward', 'back', 'refresh',
   'find-element-by-class', 'find-element-by-css', 'find-element-by-id',
   'find-element-by-name', 'find-element-by-link-text',

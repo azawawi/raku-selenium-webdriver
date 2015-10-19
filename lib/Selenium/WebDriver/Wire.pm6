@@ -83,7 +83,7 @@ method new-session {
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url
-method set-url(Str $url) {
+multi method url(Str $url) {
   return self._execute-command(
     "POST",
     "/session/$(self.session-id)/url",
@@ -96,7 +96,7 @@ method set-url(Str $url) {
 =begin markdown
 =end markdown
 # GET /session/:sessionId/url
-method url {
+multi method url {
   return self._execute-get( 'url' );
 }
 
