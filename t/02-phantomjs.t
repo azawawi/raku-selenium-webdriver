@@ -9,7 +9,7 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'find-element-by-class', 'find-element-by-css', 'find-element-by-id',
   'find-element-by-name', 'find-element-by-link-text',
   'find-element-by-partial-link-text', 'find-element-by-tag-name',
-  'find-element-by-xpath';
+  'find-element-by-xpath', 'sessions', 'capabilities';
 
 plan @methods.elems + 2;
 

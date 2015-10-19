@@ -33,7 +33,7 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   my $session;
   for 1..MAX-ATTEMPTS {
     # Try to create session
-    $session = self.new-session;
+    $session = self._new-session;
     last if $session.defined;
 
     CATCH {
@@ -69,7 +69,7 @@ method new-phantomjs-process {
 =begin markdown
 =end markdown
 # POST /session
-method new-session {
+method _new-session {
   return self._execute-command(
     "POST",
     "/session",
@@ -78,6 +78,26 @@ method new-session {
         "requiredCapabilities" => {},
     }
   );
+}
+
+=begin markdown
+=end markdown
+# GET /sessions
+method sessions {
+  my $result = self._execute-command( "GET", "/sessions" );
+
+  return unless $result.defined;
+  return $result<value>;
+}
+
+# GET /session/:sessionId
+method capabilities {
+  return self._execute-command( "GET", "/session/$(self.session-id)" );
+}
+
+# DELETE /session/:sessionId
+method _delete_session {
+  return self._execute-command( "DELETE", "/session/$(self.session-id)" );
 }
 
 =begin markdown
@@ -132,8 +152,10 @@ method click {
 =begin markdown
 =end markdown
 method quit {
-  #TODO kill session
-  $.process.kill if $.process.defined;
+  self._delete_session if self.session-id.defined;
+  LEAVE {
+    $.process.kill if $.process.defined;
+  }
 };
 
 =begin markdown
@@ -248,7 +270,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
   $ua.timeout = 5;
   my $url = "http://127.0.0.1:" ~ self.port ~ $command;
   my $response;
-  if ( $method eq "POST" ) {
+  if ( $method eq 'POST' ) {
     my $content = to-json($params);
     my $request = HTTP::Request.new(
       :POST($url),
@@ -265,8 +287,22 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
       }
     }
   }
-  elsif ( $method eq "GET" ) {
+  elsif ( $method eq 'GET' ) {
     $response = $ua.get( $url );
+
+    CATCH {
+      default {
+        say "Error while executing '$method $command': $_" if self.debug;
+      }
+    }
+  }
+  elsif ( $method eq 'DELETE' ) {
+    my $request = HTTP::Request.new(
+      :DELETE($url),
+      :Content-Type("application/json;charset=UTF-8"),
+      :Connection("close"),
+    );
+    $response = $ua.request($request);
 
     CATCH {
       default {
