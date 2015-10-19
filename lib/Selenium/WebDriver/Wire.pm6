@@ -84,13 +84,7 @@ method new-session {
 =end markdown
 # POST /session/:sessionId/url
 multi method url(Str $url) {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/url",
-    {
-        url => $url,
-    }
-  );
+  return self._post( "url", { url => $url } );
 }
 
 =begin markdown
@@ -118,9 +112,8 @@ method source {
 =end markdown
 # POST /session/:sessionId/moveto
 method move-to(Str $element, Int $xoffset, Int $yoffset) {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/moveto",
+  return self._post(
+    "moveto",
     {
         element => $element,
         xoffset => $xoffset,
@@ -133,10 +126,7 @@ method move-to(Str $element, Int $xoffset, Int $yoffset) {
 =end markdown
 # POST /session/:sessionId/click
 method click {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/click",
-  );
+  return self._post( "click" );
 }
 
 =begin markdown
@@ -165,39 +155,29 @@ method save-screenshot(Str $filename) {
 =end markdown
 # POST /session/:sessionId/forward
 method forward {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/forward",
-  );
+  return self._post( "forward" );
 }
 
 =begin markdown
 =end markdown
 # POST /session/:sessionId/back
 method back {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/back",
-  );
+  return self._post( "back" );
 }
 
 =begin markdown
 =end markdown
 # POST /session/:sessionId/refresh
 method refresh {
-  return self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/refresh",
-  );
+  return self._post( "refresh" );
 }
 
 =begin markdown
 =end markdown
 # POST /session/:sessionId/element
 method _find-element(Str $using, Str $value) {
-  my $result = self._execute-command(
-    "POST",
-    "/session/$(self.session-id)/element",
+  my $result = self._post(
+    "element",
     {
       'using' => $using,
       'value' => $value,
@@ -320,4 +300,12 @@ method _get(Str $command) {
 
   return unless $result.defined;
   return $result<value>;
+}
+
+method _post(Str $command, Hash $params = {}) {
+  return self._execute-command(
+    "POST",
+    "/session/$(self.session-id)/$command",
+    $params
+  );
 }
