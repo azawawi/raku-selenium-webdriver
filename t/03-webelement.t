@@ -13,11 +13,9 @@ plan @methods.elems + 2;
 use Selenium::WebDriver::WebElement;
 ok 1, "'use Selenium::WebDriver::WebElement' worked!";
 
-my $driver = Selenium::WebDriver::WebElement.new;
-ok $driver, "Selenium::WebDriver::WebElement.new worked";
+my $element = Selenium::WebDriver::WebElement.new;
+ok $element, "Selenium::WebDriver::WebElement.new worked";
 
 for @methods -> $method {
   ok Selenium::WebDriver::WebElement.can($method), "Selenium::WebDriver::WebElement.$method is found";
 }
-
-$driver.quit;
