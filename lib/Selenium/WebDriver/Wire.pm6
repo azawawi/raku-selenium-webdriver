@@ -129,8 +129,13 @@ method window-handle returns Str {
 }
 
 # GET /session/:sessionId/window_handles
-method window-handles returns Str {
+method window-handles returns Array {
   return self._get( 'window_handles' );
+}
+
+# GET /status
+method status returns Hash {
+  return self._get( 'status' );
 }
 
 =begin markdown

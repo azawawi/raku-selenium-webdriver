@@ -11,7 +11,7 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'find-element-by-partial-link-text', 'find-element-by-tag-name',
   'find-element-by-xpath', 'sessions', 'capabilities',
   'script-timeout', 'implicit-timeout', 'page-load-timeout',
-  'window-handle', 'window-handles';
+  'window-handle', 'window-handles', 'status';
 
 plan @methods.elems + 9;
 
