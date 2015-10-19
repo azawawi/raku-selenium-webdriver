@@ -196,12 +196,34 @@ method ime-activated returns Bool {
 
 # POST /session/:sessionId/ime/deactivate
 method ime-deactivate {
-  return self.post( 'ime/deactivate' );
+  return self._post( 'ime/deactivate' );
 }
 
 # POST /session/:sessionId/ime/activate
 method ime-activate(Str $engine) {
-  return self.post( 'ime/activate', { engine => $engine } );
+  return self._post( 'ime/activate', { engine => $engine } );
+}
+
+# POST /session/:sessionId/frame
+method _frame(Any $id) {
+  return self._post( 'frame', { id => $id } );
+}
+
+multi method frame(Str $id) {
+  return self._frame($id);
+}
+
+multi method frame(Int $id) {
+  return self._frame($id);
+}
+
+multi method frame(Selenium::WebDriver::WebElement $id) {
+  return self._frame($id);
+}
+
+# POST /session/:sessionId/frame/parent
+multi method frame-parent {
+  return self._post( 'frame/parent' );
 }
 
 =begin markdown

@@ -14,7 +14,7 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'window-handle', 'window-handles', 'status',
   'async-script-timeout', 'implicit-wait-timeout', 'execute', 'execute-async',
   'ime-available-engines', 'ime-active-engine', 'ime-activated',
-  'ime-activated', 'ime-activated';
+  'ime-activated', 'ime-activated', 'frame', 'frame-parent';
 
 plan @methods.elems + 9;
 
