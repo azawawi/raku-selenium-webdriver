@@ -100,6 +100,29 @@ method _delete_session {
   return self._execute-command( "DELETE", "/session/$(self.session-id)" );
 }
 
+# POST /session/:sessionId/timeouts
+method _timeouts(Str $type, Int $timeout_millis) {
+  return self._post(
+    'timeouts',
+    {
+      type => $type,
+      ms => $timeout_millis
+    }
+  );
+}
+
+method script-timeout(Int $timeout_millis) {
+  return self._timeouts( 'script', $timeout_millis );
+}
+
+method implicit-timeout(Int $timeout_millis) {
+  return self._timeouts( 'implicit', $timeout_millis );
+}
+
+method page-load-timeout(Int $timeout_millis) {
+  return self._timeouts( 'page load', $timeout_millis );
+}
+
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url
