@@ -17,9 +17,6 @@ $driver.url( "http://google.com" );
 ok $driver.title ~~ / 'Google' /,                "Google in title";
 ok $driver.url   ~~ / ^ 'http://' .+? 'google'/, "google.com in url";
 
-#$driver.frame(1);
-$driver.frame-parent;
-
 # Find search box and then type "Perl 6" in it
 my $search-box = $driver.find-element-by-name( 'q' );
 $search-box.send-keys( "Perl 6" );
