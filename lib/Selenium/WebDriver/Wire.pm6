@@ -123,6 +123,16 @@ method page-load-timeout(Int $timeout_millis) {
   return self._timeouts( 'page load', $timeout_millis );
 }
 
+# POST /session/:sessionId/timeouts/async_script
+method async-script-timeout(Int $timeout_millis) {
+  return self._post( 'timeouts/async_script', { ms => $timeout_millis } );
+}
+
+# POST /session/:sessionId/timeouts/implicit_wait
+method implicit-wait-timeout(Int $timeout_millis) {
+  return self._post( 'timeouts/implicit_wait', { ms => $timeout_millis } );
+}
+
 # GET /session/:sessionId/window_handle
 method window-handle returns Str {
   return self._get( 'window_handle' );
