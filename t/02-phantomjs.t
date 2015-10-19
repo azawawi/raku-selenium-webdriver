@@ -11,7 +11,7 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'find-element-by-partial-link-text', 'find-element-by-tag-name',
   'find-element-by-xpath', 'sessions', 'capabilities';
 
-plan @methods.elems + 2;
+plan @methods.elems + 9;
 
 use Selenium::WebDriver::PhantomJS;
 ok 1, "'use Selenium::WebDriver::PhantomJS' worked!";
@@ -32,4 +32,23 @@ for @methods -> $method {
   ok Selenium::WebDriver::PhantomJS.can($method), "Selenium::WebDriver::PhantomJS.$method is found";
 }
 
-$driver.quit;
+{
+  my $sessions = $driver.sessions;
+  diag $sessions;
+  ok $sessions.defined, "Sessions returned a defined value";
+  ok $sessions ~~ Array, "Sessions is an array";
+  ok $sessions.elems == 1, "Only One session should be there";
+  ok $sessions[0]<id> ~~ Str, "And we have a sessionId";
+}
+
+{
+  my $capabilities = $driver.capabilities;
+  diag $capabilities;
+  ok $capabilities.defined, "capabilities returned a defined value";
+  ok $capabilities ~~ Hash, "capabilities is a hash";
+  ok $capabilities<sessionId> ~~ Str, "And we have a sessionId";
+}
+
+LEAVE {
+  $driver.quit if $driver.defined;
+}
