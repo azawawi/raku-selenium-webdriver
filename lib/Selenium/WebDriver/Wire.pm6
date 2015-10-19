@@ -29,7 +29,7 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   self.process = self.new-phantomjs-process;
 
   # Try to create a new phantomjs session for n times
-  my constant MAX-ATTEMPTS = 3;
+  my constant MAX-ATTEMPTS = 10;
   my $session;
   for 1..MAX-ATTEMPTS {
     # Try to create session
