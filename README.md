@@ -40,9 +40,8 @@ variable.
 
 ### Travis CI
 
-Travis CI comes with preinstalled phantomjs
-
-http://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-PhantomJS
+Travis CI comes with [preinstalled PhantomJS](
+http://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-PhantomJS)
 
 ## Status
 
