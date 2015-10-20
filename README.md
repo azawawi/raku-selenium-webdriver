@@ -4,7 +4,7 @@
 
 This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol).
 
-***Note:*** This module is a work in progress. Please see [Status](https://github.com/azawawi/perl6-selenium-webdriver/blob/master/README.md#status).
+***Note:*** This module is a work in progress. Please see its status [here](https://github.com/azawawi/perl6-selenium-webdriver/blob/master/README.md#status).
 
 ## Example
 
