@@ -14,7 +14,8 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'current-window', 'windows', 'status',
   'async-script-timeout', 'implicit-wait-timeout', 'execute', 'execute-async',
   'ime-available-engines', 'ime-active-engine', 'ime-activated',
-  'ime-activated', 'ime-activated', 'frame', 'frame-parent';
+  'ime-activated', 'ime-activated', 'frame', 'frame-parent',
+  'cookies', 'cookie', 'delete-all-cookies', 'delete-cookie';
 
 plan @methods.elems + 14;
 

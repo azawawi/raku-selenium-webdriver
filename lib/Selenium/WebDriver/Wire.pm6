@@ -238,6 +238,37 @@ multi method frame-parent {
   return self._post( 'frame/parent' );
 }
 
+# GET /session/:sessionId/cookie
+method cookies returns Array {
+  return self._get( 'cookie' );
+}
+
+# POST /session/:sessionId/cookie
+=begin markdown
+
+    my $cookie = {
+      name   => 'Name',
+      value  => 'Value',
+      path   => '/',
+      domain => 'domain.com',
+    };
+    $driver.cookie( $cookie );
+
+=end markdown
+multi method cookie(Hash $cookie) {
+  return self._post( 'cookie', { cookie => $cookie } );
+}
+
+# DELETE /session/:sessionId/cookie
+method delete-all-cookies {
+  return self._delete( 'cookie' );
+}
+
+# DELETE /session/:sessionId/cookie/:name
+method delete-cookie(Str $name) {
+  return self._delete( "cookie/$name" );
+}
+
 =begin markdown
 =end markdown
 # POST /session/:sessionId/url
@@ -400,7 +431,16 @@ method find-element-by-xpath(Str $xpath) {
 }
 
 method _die(Str $method, Str $command, Any $message) {
-  die ("-" x 80) ~
+  my $o = from-json($message.response.content);
+
+  #TODO throw it as an exception
+  my $error = $o<value>;
+  say "-" x 80;
+  say "Error Message:    " ~ $error<message>;
+  say "Has a screenshot: " ~ $error<screen>.defined;
+  say "Error class:      " ~ $error<class>;
+
+  die
     "\nError while executing '$method $command':\n" ~
     "$message\n" ~
     ("-" x 80);
