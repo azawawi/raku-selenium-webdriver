@@ -19,7 +19,12 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'send-keys-to-active-element', 'orientation', 'alert-text', 'accept-alert',
   'dismiss-alert', 'button-down', 'button-up', 'double-click', 'touch-click',
   'touch-down', 'touch-up', 'touch-move', 'touch-scroll', 'touch-double-click',
-  'touch-long-click', 'touch-flick', 'location';
+  'touch-long-click', 'touch-flick', 'location',
+  'local-storage', 'add-to-local-storage', 'clear-local-storage',
+  'get-from-local-storage', 'delete-from-local-storage', 'local-storage-size',
+  'session-storage', 'add-to-session-storage', 'clear-session-storage',
+  'get-from-session-storage', 'delete-from-session-storage',
+  'session-storage-size', 'log', 'log-types', 'application-cache-status';
 
 plan @methods.elems + 14;
 

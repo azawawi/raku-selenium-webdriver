@@ -566,6 +566,80 @@ multi method location(Hash $location) {
   return self._post( 'location', location => $location );
 }
 
+# GET /session/:sessionId/local_storage
+method local-storage {
+  return self._get( 'local_storage' );
+}
+
+# POST /session/:sessionId/local_storage
+method add-to-local-storage(Str $key, Str $value) {
+  return self._post( 'local_storage', key => $key, value => $value );
+}
+
+# DELETE /session/:sessionId/local_storage
+method clear-local-storage {
+  return self._delete( 'local_storage' );
+}
+
+# GET /session/:sessionId/local_storage/key/:key
+method get-from-local-storage(Str $key) {
+  return self._get( "local_storage/key/$key" );
+}
+
+# DELETE /session/:sessionId/local_storage/key/:key
+method delete-from-local-storage(Str $key) {
+  return self._delete( "local_storage/key/$key" );
+}
+
+# GET /session/:sessionId/local_storage/size
+method local-storage-size(Str $key) returns Int {
+  return self._get( 'local_storage/size' );
+}
+
+# GET /session/:sessionId/session_storage
+method session-storage {
+  return self._get( 'session_storage' );
+}
+
+# POST /session/:sessionId/session_storage
+method add-to-session-storage(Str $key, Str $value) {
+  return self._post( 'session_storage', key => $key, value => $value );
+}
+
+# DELETE /session/:sessionId/session_storage
+method clear-session-storage {
+  return self._delete( 'session_storage' );
+}
+
+# GET /session/:sessionId/session_storage/key/:key
+method get-from-session-storage(Str $key) {
+  return self._get( 'session_storage/key/$key' );
+}
+
+# DELETE /session/:sessionId/session_storage/key/:key
+method delete-from-session-storage(Str $key) {
+  return self._delete( 'session_storage/key/$key' );
+}
+
+# GET /session/:sessionId/session_storage/size
+method session-storage-size(Str $key) returns Int {
+  return self._get( 'session_storage/size' );
+}
+
+# POST /session/:sessionId/log
+method log(Str $type) {
+  return self._post( 'log', type => $type );
+}
+
+# GET /session/:sessionId/log/types
+method log-types {
+  return self._get( 'log/types' );
+}
+
+# GET /session/:sessionId/application_cache/status
+method application-cache-status {
+  return self._get( 'application_cache/status' );
+}
 
 method _die(Str $method, Str $command, Any $message) {
   say "content:\n";
