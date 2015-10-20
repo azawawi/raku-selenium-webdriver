@@ -468,6 +468,105 @@ method dismiss-alert {
   return self._post( 'dismiss_alert' );
 }
 
+# POST /session/:sessionId/buttondown
+method button-down(Int $button where $_ eq any(0..2)) {
+  return self._post( 'buttondown', button => $button );
+}
+
+# POST /session/:sessionId/buttonup
+method button-up(Int $button where $_ eq any(0..2)) {
+  return self._post( 'buttonup', button => $button );
+}
+
+# POST /session/:sessionId/doubleclick
+method double-click {
+  return self._post( 'doubleclick' );
+}
+
+# POST /session/:sessionId/touch/click
+method touch-click(Str $element) {
+  return self._post( 'touch/click', { element => $element} );
+}
+
+# POST /session/:sessionId/touch/down
+method touch-down(Int $x, Int $y) {
+  return self._post( 'touch/down', { x => $x, y => $y } );
+}
+
+# POST /session/:sessionId/touch/up
+method touch-up(Int $x, Int $y) {
+  return self._post( 'touch/up', { x => $x, y => $y } );
+}
+
+# POST session/:sessionId/touch/move
+method touch-move(Int $x, Int $y) {
+  return self._post( 'touch/move', { x => $x, y => $y } );
+}
+
+# POST session/:sessionId/touch/scroll
+multi method touch-scroll(Str $element, Int $x-offset, Int $y-offset) {
+  return self._post(
+    'touch/scroll',
+    { element => $element, xoffset => $x-offset, yoffset => $y-offset }
+  );
+}
+
+multi method touch-scroll(Int $x-offset, Int $y-offset) {
+  return self._post(
+    'touch/scroll',
+    { xoffset => $x-offset, yoffset => $y-offset }
+  );
+}
+
+# POST session/:sessionId/touch/doubleclick
+method touch-double-click(Str $element) {
+  return self._post( 'touch/doubleclick', { element => $element} );
+}
+
+# POST session/:sessionId/touch/longclick
+method touch-long-click(Str $element) {
+  return self._post( 'touch/longclick', { element => $element} );
+}
+
+# POST session/:sessionId/touch/flick
+multi method touch-flick(
+  Str $element,
+  Int $x-offset,
+  Int $y-offset,
+  Int $speed)
+{
+  return self._post(
+    'touch/flick',
+    {
+      element => $element,
+      xoffset => $x-offset,
+      yoffset => $y-offset,
+      speed   => $speed
+    }
+  );
+}
+
+multi method touch-flick(Int $x-speed, Int $y-speed) {
+  return self._post(
+    'touch/flick',
+    {
+      xspeed => $x-speed,
+      yspeed => $y-speed
+    }
+  );
+}
+
+# GET /session/:sessionId/location
+multi method location {
+  return self._get( 'location' );
+}
+
+# POST /session/:sessionId/location
+multi method location(Hash $location) {
+  return self._post( 'location', location => $location );
+}
+
+
 method _die(Str $method, Str $command, Any $message) {
   say "content:\n";
   say $message.response.content;

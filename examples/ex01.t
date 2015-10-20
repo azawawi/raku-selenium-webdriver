@@ -31,6 +31,10 @@ $search-box.submit;
 # Verify that our submission worked
 ok $driver.title ~~ / 'Perl 6' /,   "Perl 6 in search results page";
 
+$driver.move-to('', 500, 500);
+$driver.button-down(2);
+$driver.button-up(2);
+
 # Take a screenshot
 my $filename = 'output.png';
 $driver.save-screenshot( $filename );

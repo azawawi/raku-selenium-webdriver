@@ -17,7 +17,9 @@ my @methods = 'url', 'source', 'move-to', 'click', 'quit',
   'ime-activated', 'ime-activated', 'frame', 'frame-parent',
   'cookies', 'cookie', 'delete-all-cookies', 'delete-cookie',
   'send-keys-to-active-element', 'orientation', 'alert-text', 'accept-alert',
-  'dismiss-alert';
+  'dismiss-alert', 'button-down', 'button-up', 'double-click', 'touch-click',
+  'touch-down', 'touch-up', 'touch-move', 'touch-scroll', 'touch-double-click',
+  'touch-long-click', 'touch-flick', 'location';
 
 plan @methods.elems + 14;
 
