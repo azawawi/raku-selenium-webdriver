@@ -18,27 +18,27 @@ method close-current {
 # POST /session/:sessionId/window/:windowHandle/size
 multi method size(Int $width, Int $height) {
   return $.driver._post(
-    'window/$.handle/size',
+    "window/$.handle/size",
     { width  => $width, height => $height }
   );
 }
 
 # GET /session/:sessionId/window/:windowHandle/size
 multi method size returns Hash {
-  return $.driver._get( 'window/$.handle/size' );
+  return $.driver._get( "window/$.handle/size" );
 }
 
 # POST /session/:sessionId/window/:windowHandle/position
 multi method position(Int $x, Int $y) returns Hash {
-  return $.driver._post( 'window/$.handle/position', { x  => $x, y  => $y } );
+  return $.driver._post( "window/$.handle/position", { x  => $x, y  => $y } );
 }
 
 # GET /session/:sessionId/window/:windowHandle/position
 multi method position returns Hash {
-  return $.driver._get( 'window/$.handle/position' );
+  return $.driver._get( "window/$.handle/position" );
 }
 
 # POST /session/:sessionId/window/:windowHandle/maximize
 multi method maximize {
-  return $.driver._post( 'window/$.handle/maximize' );
+  return $.driver._post( "window/$.handle/maximize" );
 }
