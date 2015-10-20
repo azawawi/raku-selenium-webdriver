@@ -430,20 +430,31 @@ method find-element-by-xpath(Str $xpath) {
   return self._find-element( 'xpath', $xpath );
 }
 
+class Selenium::WebDriver::X::Server is Exception {
+  has $.reason     is rw;
+  has $.screenshot is rw;
+  has $.class      is rw;
+
+  method message {
+   return
+     "\n" ~ "-" x 80 ~ "\n"  ~
+     "Error:\n"              ~
+     "Reason:  \n"           ~ $.reason ~ "\n" ~
+     "Type:  \n"             ~ $.class ~ "\n" ~
+     "Has a screenshot:\n  " ~ $.screenshot.defined ~ "\n" ~
+     "-" x 80;
+  }
+}
+
 method _die(Str $method, Str $command, Any $message) {
   my $o = from-json($message.response.content);
 
-  #TODO throw it as an exception
   my $error = $o<value>;
-  say "-" x 80;
-  say "Error Message:    " ~ $error<message>;
-  say "Has a screenshot: " ~ $error<screen>.defined;
-  say "Error class:      " ~ $error<class>;
-
-  die
-    "\nError while executing '$method $command':\n" ~
-    "$message\n" ~
-    ("-" x 80);
+  Selenium::WebDriver::X::Server.new(
+    reason     => $error<message>,
+    screenshot => $error<screen>,
+    class      => $error<class>
+  ).throw;
 }
 =begin markdown
 =end markdown
