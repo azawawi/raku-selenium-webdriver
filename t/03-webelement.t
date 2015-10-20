@@ -17,5 +17,6 @@ my $element = Selenium::WebDriver::WebElement.new;
 ok $element, "Selenium::WebDriver::WebElement.new worked";
 
 for @methods -> $method {
-  ok Selenium::WebDriver::WebElement.can($method), "Selenium::WebDriver::WebElement.$method is found";
+  ok Selenium::WebDriver::WebElement.can($method),
+    "Selenium::WebDriver::WebElement.$method is found";
 }

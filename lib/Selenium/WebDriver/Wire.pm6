@@ -15,6 +15,7 @@ use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
 use Selenium::WebDriver::WebElement;
+use Selenium::WebDriver::WebWindow;
 
 has Bool        $.debug      is rw;
 has Int         $.port       is rw;
@@ -134,13 +135,24 @@ method implicit-wait-timeout(Int $timeout_millis) {
 }
 
 # GET /session/:sessionId/window_handle
-method window-handle returns Str {
-  return self._get( 'window_handle' );
+method current-window returns Selenium::WebDriver::WebWindow {
+  my $handle = self._get( 'window_handle' );
+  return Selenium::WebDriver::WebWindow.new( :handle($handle), :driver(self) );
 }
 
 # GET /session/:sessionId/window_handles
-method window-handles returns Array {
-  return self._get( 'window_handles' );
+method windows returns Array[Selenium::WebDriver::WebWindow] {
+  my @handles = @( self._get( 'window_handles' ) );
+  my Selenium::WebDriver::WebWindow @results = gather {
+    for @handles -> $handle {
+      take Selenium::WebDriver::WebWindow.new(
+        :handle($handle),
+        :driver(self)
+      );
+    }
+  };
+
+  return @results;
 }
 
 # GET /status
@@ -473,6 +485,14 @@ method _get(Str $command) {
 method _post(Str $command, Hash $params = {}) {
   return self._execute-command(
     "POST",
+    "/session/$(self.session-id)/$command",
+    $params
+  );
+}
+
+method _delete(Str $command, Hash $params = {}) {
+  return self._execute-command(
+    "DELETE",
     "/session/$(self.session-id)/$command",
     $params
   );
