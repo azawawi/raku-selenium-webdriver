@@ -50,8 +50,8 @@ No special instructions are needed.
 
 | Web Driver    | Status        |
 | ------------- | ------------- |
-| PhantomJS     | working       |
-| Firefox       | Pending       |
+| PhantomJS     | **DONE** but needs more tests |
+| Firefox       | **IN PROGRESS** |
 | Chrome        | Pending       |
 | Safari        | Pending       |
 | Opera         | Pending       |
