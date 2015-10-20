@@ -431,7 +431,47 @@ method find-element-by-xpath(Str $xpath) {
   return self._find-element( 'xpath', $xpath );
 }
 
+=begin markdown
+=end markdown
+# POST /session/:sessionId/keys
+method send-keys-to-active-element(Str $keys) {
+  return self._post( "keys", value => $keys.split('') );
+}
+
+# GET /session/:sessionId/orientation
+multi method orientation {
+  return self._get( 'orientation' );
+}
+
+# POST /session/:sessionId/orientation
+multi method orientation(Str $orientation) {
+  return self._post( 'orientation', orientation => $orientation );
+}
+
+# GET /session/:sessionId/alert_text
+multi method alert-text {
+  return self._get( 'alert_text' );
+}
+
+# POST /session/:sessionId/alert_text
+multi method alert-text(Str $text) {
+  return self._post( 'alert_text', text => $text );
+}
+
+# POST /session/:sessionId/accept_alert
+method accept-alert {
+  return self._post( 'accept_alert' );
+}
+
+# POST /session/:sessionId/dismiss_alert
+method dismiss-alert {
+  return self._post( 'dismiss_alert' );
+}
+
 method _die(Str $method, Str $command, Any $message) {
+  say "content:\n";
+  say $message.response.content;
+  say "end of content\n";
   my $o = from-json($message.response.content);
 
   my $error = $o<value>;
