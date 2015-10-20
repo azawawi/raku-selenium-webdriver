@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/azawawi/perl6-selenium-webdriver.svg?branch=master)](https://travis-ci.org/azawawi/perl6-selenium-webdriver)
 
-This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver](https://code.google.com/p/selenium/wiki/JsonWireProtocol) protocol.
+This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver Wire ](https://code.google.com/p/selenium/wiki/JsonWireProtocol) protocol.
 
 ***Note:*** This module is a work in progress. Please see [Status](https://github.com/azawawi/perl6-selenium-webdriver/blob/master/README.md#status).
 
