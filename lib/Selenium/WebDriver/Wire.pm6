@@ -367,7 +367,7 @@ method refresh {
 =begin markdown
 =end markdown
 # POST /session/:sessionId/element
-method _find-element(Str $using, Str $value) {
+method _element(Str $using, Str $value) {
   my $result = self._post(
     "element",
     {
@@ -385,51 +385,54 @@ method _find-element(Str $using, Str $value) {
 
 =begin markdown
 =end markdown
-method find-element-by-class(Str $class) {
-  return self._find-element( 'class name', $class );
+method element-by-class(Str $class) {
+  return self._element( 'class name', $class );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-css(Str $selector) {
-  return self._find-element( 'css selector', $selector );
+method element-by-css(Str $selector) {
+  return self._element( 'css selector', $selector );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-id(Str $id) {
-  return self._find-element( 'id', $id );
+method element-by-id(Str $id) {
+  return self._element( 'id', $id );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-name(Str $name) {
-  return self._find-element( 'name', $name );
+method element-by-name(Str $name) {
+  return self._element( 'name', $name );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-link-text(Str $link-text) {
-  return self._find-element( 'link text', $link-text );
+method element-by-link-text(Str $link-text) {
+  return self._element( 'link text', $link-text );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-partial-link-text(Str $partial-link-text) {
-  return self._find-element( 'partial link text', $partial-link-text );
+method element-by-partial-link-text(Str $partial-link-text) {
+  return self._element( 'partial link text', $partial-link-text );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-tag-name(Str $tag-name) {
-  return self._find-element( 'tag name', $tag-name );
+method element-by-tag-name(Str $tag-name) {
+  return self._element( 'tag name', $tag-name );
 }
 
 =begin markdown
 =end markdown
-method find-element-by-xpath(Str $xpath) {
-  return self._find-element( 'xpath', $xpath );
+method element-by-xpath(Str $xpath) {
+  return self._element( 'xpath', $xpath );
 }
+
+# TODO implement POST /session/:sessionId/elements
+# TODO implement all strategy permutations for elements
 
 =begin markdown
 =end markdown

@@ -18,7 +18,7 @@ ok $driver.title ~~ / 'Google' /,                "Google in title";
 ok $driver.url   ~~ / ^ 'http://' .+? 'google'/, "google.com in url";
 
 # Find search box and then type "Perl 6" in it
-my $search-box = $driver.find-element-by-name( 'q' );
+my $search-box = $driver.element-by-name( 'q' );
 $search-box.send-keys( "Perl 6" );
 $search-box.send-keys( %Keys<ENTER> );
 
@@ -30,10 +30,6 @@ $search-box.submit;
 
 # Verify that our submission worked
 ok $driver.title ~~ / 'Perl 6' /,   "Perl 6 in search results page";
-
-$driver.move-to('', 500, 500);
-$driver.button-down(2);
-$driver.button-up(2);
 
 # Take a screenshot
 my $filename = 'output.png';
