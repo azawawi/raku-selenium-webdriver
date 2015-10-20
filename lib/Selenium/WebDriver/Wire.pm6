@@ -16,6 +16,7 @@ use JSON::Tiny;
 use MIME::Base64;
 use Selenium::WebDriver::WebElement;
 use Selenium::WebDriver::WebWindow;
+use Selenium::WebDriver::X::Error;
 
 has Bool        $.debug      is rw;
 has Int         $.port       is rw;
@@ -430,27 +431,11 @@ method find-element-by-xpath(Str $xpath) {
   return self._find-element( 'xpath', $xpath );
 }
 
-class Selenium::WebDriver::X::Server is Exception {
-  has $.reason     is rw;
-  has $.screenshot is rw;
-  has $.class      is rw;
-
-  method message {
-   return
-     "\n" ~ "-" x 80 ~ "\n"  ~
-     "Error:\n"              ~
-     "Reason:  \n"           ~ $.reason ~ "\n" ~
-     "Type:  \n"             ~ $.class ~ "\n" ~
-     "Has a screenshot:\n  " ~ $.screenshot.defined ~ "\n" ~
-     "-" x 80;
-  }
-}
-
 method _die(Str $method, Str $command, Any $message) {
   my $o = from-json($message.response.content);
 
   my $error = $o<value>;
-  Selenium::WebDriver::X::Server.new(
+  Selenium::WebDriver::X::Error.new(
     reason     => $error<message>,
     screenshot => $error<screen>,
     class      => $error<class>

@@ -12,8 +12,6 @@ use Selenium::WebDriver::Keys;
 # installed
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
-$driver.cookie({});
-
 # Navigate to google.com
 $driver.url( "http://google.com" );
 ok $driver.title ~~ / 'Google' /,                "Google in title";
