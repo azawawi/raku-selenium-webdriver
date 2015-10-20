@@ -145,12 +145,10 @@ method current-window returns Selenium::WebDriver::WebWindow {
 method windows returns Array[Selenium::WebDriver::WebWindow] {
   my @handles = @( self._get( 'window_handles' ) );
   my Selenium::WebDriver::WebWindow @results = gather {
-    for @handles -> $handle {
-      take Selenium::WebDriver::WebWindow.new(
-        :handle($handle),
-        :driver(self)
-      );
-    }
+    take Selenium::WebDriver::WebWindow.new(
+      :handle($_),
+      :driver(self)
+    ) for @handles;
   };
 
   return @results;
@@ -431,8 +429,76 @@ method element-by-xpath(Str $xpath) {
   return self._element( 'xpath', $xpath );
 }
 
-# TODO implement POST /session/:sessionId/elements
-# TODO implement all strategy permutations for elements
+=begin markdown
+=end markdown
+# POST /session/:sessionId/elements
+method _elements(Str $using, Str $value) {
+  my @elements = self._post(
+    "elements",
+    {
+      'using' => $using,
+      'value' => $value,
+    }
+  );
+
+  return unless @elements.defined;
+  my @results = gather {
+      take Selenium::WebDriver::WebElement.new(
+        :id( $_<value><ELEMENT> ),
+        :driver( self )
+      ) for @elements;
+  };
+
+  return @results;
+}
+
+=begin markdown
+=end markdown
+method elements-by-class(Str $class) {
+  return self._elements( 'class name', $class );
+}
+
+=begin markdown
+=end markdown
+method elements-by-css(Str $selector) {
+  return self._elements( 'css selector', $selector );
+}
+
+=begin markdown
+=end markdown
+method elements-by-id(Str $id) {
+  return self._elements( 'id', $id );
+}
+
+=begin markdown
+=end markdown
+method elements-by-name(Str $name) {
+  return self._elements( 'name', $name );
+}
+
+=begin markdown
+=end markdown
+method elements-by-link-text(Str $link-text) {
+  return self._elements( 'link text', $link-text );
+}
+
+=begin markdown
+=end markdown
+method elements-by-partial-link-text(Str $partial-link-text) {
+  return self._elements( 'partial link text', $partial-link-text );
+}
+
+=begin markdown
+=end markdown
+method elements-by-tag-name(Str $tag-name) {
+  return self._elements( 'tag name', $tag-name );
+}
+
+=begin markdown
+=end markdown
+method elements-by-xpath(Str $xpath) {
+  return self._elements( 'xpath', $xpath );
+}
 
 =begin markdown
 =end markdown
