@@ -21,16 +21,16 @@ use Selenium::WebDriver::X::Error;
 has Bool        $.debug      is rw;
 has Int         $.port       is rw;
 has Str         $.session-id is rw;
-has Proc::Async $.process    is rw;
 
 =begin markdown
 =end markdown
 submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   self.debug   = $debug;
   self.port    = $port;
-  self.process = self.new-phantomjs-process;
 
-  # Try to create a new phantomjs session for n times
+  self.start;
+
+  # Try to create a session for n times
   my constant MAX-ATTEMPTS = 10;
   my $session;
   for 1..MAX-ATTEMPTS {
@@ -54,19 +54,11 @@ submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
   die "Session id is not defined" unless self.session-id.defined;
 }
 
-=begin markdown
-=end markdown
-method new-phantomjs-process {
-  say "Starting phantomjs process" if $.debug;
-  my $process = Proc::Async.new(
-    'phantomjs',
-    "--webdriver=" ~ $.port,
-    "--webdriver-loglevel=" ~ ($.debug ?? "DEBUG" !! "WARN"),
-  );
-  $process.start;
+# Normally implemented in subclasses
+method start { }
 
-  return $process;
-}
+# Normally implemented in subclasses
+method stop { }
 
 =begin markdown
 =end markdown
@@ -322,7 +314,7 @@ method click {
 method quit {
   self._delete_session if self.session-id.defined;
   LEAVE {
-    $.process.kill if $.process.defined;
+    self.stop;
   }
 };
 
