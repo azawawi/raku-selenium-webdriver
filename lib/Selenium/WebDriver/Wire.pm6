@@ -28,16 +28,20 @@ has Str         $.session-id is rw;
 =end markdown
 submethod BUILD(
   Str $host        = '127.0.0.1',
-  Int :$port       = 5555,
+  Int :$port       = -1,
   Str :$url-prefix = '';
   Bool :$debug     = False )
 {
 
+  # Attributes
   self.debug      = $debug;
   self.host       = $host;
-  self.port       = $port;
   self.url-prefix = $url-prefix;
 
+  # We need to find an empty port given that no port was given
+  self.port       = $port == -1 ?? self._empty-port !! $port;
+
+  # Start behavior (normally implemented in children)
   self.start;
 
   # Try to create a session for n times
@@ -730,7 +734,7 @@ method _die(Str $method, Str $command, Any $message) {
 method _execute-command(Str $method, Str $command, Hash $params = {}) {
   say "POST $command with params " ~ $params.perl if self.debug;
 
-  my $ua = HTTP::UserAgent.new;
+  my $ua = HTTP::UserAgent.new(:throw-exceptions);
   $ua.timeout = 5;
   my $url = "http://"  ~ self.host ~ ":" ~ self.port ~ self.url-prefix ~ $command;
   my $response;
@@ -816,4 +820,31 @@ method _delete(Str $command, Hash $params = {}) {
     "/session/$(self.session-id)/$command",
     $params
   );
+}
+
+=begin markdown
+### _empty-port
+
+Find a random port in the dynamic/private range
+
+According to [IANA](http://www.iana.org/assignments/port-numbers), dynamic
+and/or private are in the range 49152 to 65535
+
+=end markdown
+method _empty-port {
+  while 1 {
+    # Find a random port in the dynamic/private range
+    my $port = (49152..65535).pick;
+
+    # Open and close a TCP connection to it
+    my $socket = IO::Socket::INET.new( :host('127.0.0.1'), :port($port) );
+    $socket.close;
+
+    CATCH {
+      default {
+        # If it fails, it may mean that this port is not bound
+        return $port;
+      }
+    }
+  }
 }
