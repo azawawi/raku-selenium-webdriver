@@ -53,7 +53,7 @@ run "unzip", "-d", $extension-path, $webdriver-xpi;
 # run "pcmanfm", $profile-path;
 
 # Setup firefox environment
-# %*ENV<XRE_CONSOLE_LOG> = "/home/azawawi/firefox.log";
+# %*ENV<XRE_CONSOLE_LOG> = "firefox.log";
 %*ENV<XRE_PROFILE_PATH> = $profile-path;
 %*ENV<MOZ_CRASHREPORTER_DISABLE> = "1";
 %*ENV<MOZ_NO_REMOTE> = "1";
