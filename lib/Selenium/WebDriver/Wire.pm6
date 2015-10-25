@@ -19,14 +19,24 @@ use Selenium::WebDriver::WebWindow;
 use Selenium::WebDriver::X::Error;
 
 has Bool        $.debug      is rw;
+has Str         $.host       is rw;
 has Int         $.port       is rw;
+has Str         $.url-prefix is rw;
 has Str         $.session-id is rw;
 
 =begin markdown
 =end markdown
-submethod BUILD( Int :$port = 5555, Bool :$debug = False ) {
-  self.debug   = $debug;
-  self.port    = $port;
+submethod BUILD(
+  Str $host        = '127.0.0.1',
+  Int :$port       = 5555,
+  Str :$url-prefix = '';
+  Bool :$debug     = False )
+{
+
+  self.debug      = $debug;
+  self.host       = $host;
+  self.port       = $port;
+  self.url-prefix = $url-prefix;
 
   self.start;
 
@@ -722,7 +732,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
   my $ua = HTTP::UserAgent.new;
   $ua.timeout = 5;
-  my $url = "http://127.0.0.1:" ~ self.port ~ $command;
+  my $url = "http://"  ~ self.host ~ ":" ~ self.port ~ self.url-prefix ~ $command;
   my $response;
   if ( $method eq 'POST' ) {
     my $content = to-json($params);

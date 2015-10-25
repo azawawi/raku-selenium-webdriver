@@ -15,10 +15,7 @@ method start {
   my $path = which( 'firefox' );
   die "Cannot find firefox in your PATH" unless $path.defined;
 
-  my $process = Proc::Async.new(
-    $path,
-    "--webdriver=" ~ $.port,
-  );
+  my $process = Proc::Async.new( $path );
   $process.start;
 
   self.process = $process;
