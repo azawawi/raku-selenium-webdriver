@@ -13,6 +13,7 @@ has Proc::Async $.process    is rw;
 method start {
   self.url-prefix = "/hub";
 
+  say 'Finding webdriver location in @*INC' if self.debug;
   my $webdriver-xpi;
   for @*INC -> $lib is copy {
     $lib = $lib.subst(/^ \w+ '#'/,"");
@@ -55,6 +56,7 @@ method start {
 
   $extension-path.IO.mkdir;
 
+  say "unzipping $webdriver-xpi into $extension-path";
   run "unzip", "-d", $extension-path, $webdriver-xpi;
 
   # Setup firefox environment
@@ -64,7 +66,7 @@ method start {
   %*ENV<MOZ_NO_REMOTE> = "1";
   %*ENV<NO_EM_RESTART> = "1";
 
-  say "Launching firefox";
+  say "Launching firefox" if self.debug;
 
   # Find process in PATH
   my $firefox = which("firefox");
