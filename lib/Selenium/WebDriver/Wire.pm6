@@ -510,7 +510,7 @@ method elements-by-xpath(Str $xpath) {
 =end markdown
 # POST /session/:sessionId/keys
 method send-keys-to-active-element(Str $keys) {
-  return self._post( "keys", value => $keys.split('') );
+  return self._post( "keys", value => $keys.comb );
 }
 
 # GET /session/:sessionId/orientation
@@ -717,7 +717,7 @@ method application-cache-status {
 }
 
 method _die(Str $method, Str $command, Any $message) {
-  say "content:\n";
+  say "Died while doing '$method $command', content:\n";
   say $message.response.content;
   say "end of content\n";
   my $o = from-json($message.response.content);
@@ -732,7 +732,7 @@ method _die(Str $method, Str $command, Any $message) {
 =begin markdown
 =end markdown
 method _execute-command(Str $method, Str $command, Hash $params = {}) {
-  say "POST $command with params " ~ $params.perl if self.debug;
+  say "$method $command with params " ~ $params.perl if self.debug;
 
   my $ua = HTTP::UserAgent.new(:throw-exceptions);
   $ua.timeout = 5;

@@ -16,7 +16,7 @@ method send-keys(Str $keys) {
   return $.driver._post(
     "element/$($.id)/value",
     {
-      "value" => $keys.split('');
+      "value" => $keys.comb;
     }
   );
 }
