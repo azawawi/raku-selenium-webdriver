@@ -6,7 +6,8 @@
       "File::Which",
       "HTTP::UserAgent",
       "JSON::Tiny",
-      "MIME::Base64"
+      "MIME::Base64",
+      "URI::Encode"
     ],
     "provides": {
         "Selenium::WebDriver": "lib/Selenium/WebDriver.pm6"

@@ -14,6 +14,7 @@ unit class Selenium::WebDriver::Wire;
 use HTTP::UserAgent;
 use JSON::Tiny;
 use MIME::Base64;
+use URI::Encode;
 use Selenium::WebDriver::WebElement;
 use Selenium::WebDriver::WebWindow;
 use Selenium::WebDriver::X::Error;
@@ -716,11 +717,11 @@ method application-cache-status {
   return self._get( 'application_cache/status' );
 }
 
-method _die(Str $method, Str $command, Any $message) {
+method _die(Str $method, Str $command, $response) {
   say "Died while doing '$method $command', content:\n";
-  say $message.response.content;
+  say $response.content if $response.defined;
   say "end of content\n";
-  my $o = from-json($message.response.content);
+  my $o = from-json($response.content);
 
   my $error = $o<value>;
   Selenium::WebDriver::X::Error.new(
@@ -734,9 +735,9 @@ method _die(Str $method, Str $command, Any $message) {
 method _execute-command(Str $method, Str $command, Hash $params = {}) {
   say "$method $command with params " ~ $params.perl if self.debug;
 
-  my $ua = HTTP::UserAgent.new(:throw-exceptions);
+  my $ua = HTTP::UserAgent.new;
   $ua.timeout = 5;
-  my $url = "http://"  ~ self.host ~ ":" ~ self.port ~ self.url-prefix ~ $command;
+  my $url = uri_encode("http://"  ~ self.host ~ ":" ~ self.port ~ self.url-prefix ~ $command);
   my $response;
   if ( $method eq 'POST' ) {
     my $content = to-json($params);
@@ -748,21 +749,9 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
     );
     $request.add-content($content);
     $response = $ua.request($request);
-
-    CATCH {
-      default {
-        self._die($method, $command, $_);
-      }
-    }
   }
   elsif ( $method eq 'GET' ) {
     $response = $ua.get( $url );
-
-    CATCH {
-      default {
-        self._die($method, $command, $_);
-      }
-    }
   }
   elsif ( $method eq 'DELETE' ) {
     my $request = HTTP::Request.new(
@@ -771,12 +760,6 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
       :Connection("close"),
     );
     $response = $ua.request($request);
-
-    CATCH {
-      default {
-        self._die($method, $command, $_);
-      }
-    }
   }
   else {
     die qq{Unknown method "$method"};
@@ -787,10 +770,11 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
 
   my $result;
   if ( $response.is-success ) {
-      $result = from-json( $response.content );
+    $result = from-json( $response.content );
   }
   else {
-      warn "FAILED: " ~ $response.status-line if self.debug;
+    self._die($method, $command, $_);
+    warn "FAILED: " ~ $response.status-line if self.debug;
   }
 
   return $result;
