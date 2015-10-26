@@ -51,7 +51,7 @@ No special instructions are needed.
 | Web Driver    | Status        |
 | ------------- | ------------- |
 | PhantomJS     | **DONE** but needs more tests |
-| Firefox       | **IN PROGRESS** |
+| Firefox       | **DONE** but needs unzip and firefox in PATH |
 | Chrome        | Pending       |
 | Safari        | Pending       |
 | Opera         | Pending       |
