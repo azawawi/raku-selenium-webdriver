@@ -8,7 +8,7 @@ plan 5;
 use Selenium::WebDriver::Firefox;
 
 # Create new firefox webdriver. Please note firefox must be already
-# installed
+# installed and configured in PATH
 my $driver = Selenium::WebDriver::Firefox.new;
 
 # Navigate to google.com

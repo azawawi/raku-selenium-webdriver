@@ -8,7 +8,7 @@ plan 5;
 use Selenium::WebDriver::PhantomJS;
 
 # Create new phantomjs webdriver. Please note phantomjs must be already
-# installed
+# installed and configured in PATH
 my $driver = Selenium::WebDriver::PhantomJS.new;
 
 # Navigate to google.com

@@ -7,7 +7,7 @@ use Test;
 plan 5;
 use Selenium::WebDriver::Chrome;
 
-# Create new Chrome webdriver. Please note chromedriver should be already
+# Create new Chrome webdriver. Please note chromedriver must be already
 # installed and configured in PATH
 my $driver = Selenium::WebDriver::Chrome.new;
 
