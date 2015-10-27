@@ -71,7 +71,9 @@ method start {
   # Find process in PATH
   my $firefox = which("firefox");
   die "Cannot find firefox in your PATH" unless $firefox.defined;
-  say "Firefox found at '$firefox'";
+
+  # Run it
+  say "Firefox found at '$firefox'" if self.debug;
   my $p = Proc::Async.new($firefox);
   $p.start;
 

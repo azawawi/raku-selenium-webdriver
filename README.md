@@ -52,7 +52,7 @@ No special instructions are needed.
 | ------------- | ------------- |
 | PhantomJS     | **DONE** but needs more tests |
 | Firefox       | **DONE** but needs unzip and firefox in PATH |
-| Chrome        | Pending       |
+| Chrome        | **DONE** but needs external [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/) |
 | Safari        | Pending       |
 | Opera         | Pending       |
 | MSIE          | Pending       |
