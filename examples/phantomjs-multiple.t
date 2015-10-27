@@ -5,7 +5,6 @@ use v6;
 use lib 'lib';
 use Test;
 use Selenium::WebDriver::PhantomJS;
-use Selenium::WebDriver::Keys;
 
 # Number of simulatenous drivers to test port collision
 constant NUM_OF_DRIVERS = 5;
