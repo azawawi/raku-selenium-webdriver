@@ -4,6 +4,7 @@ use v6;
 use Selenium::WebDriver::Wire;
 use File::Which;
 use File::Temp;
+use File::Zip;
 use JSON::Tiny;
 
 unit class Selenium::WebDriver::Firefox is Selenium::WebDriver::Wire;
@@ -57,7 +58,8 @@ method start {
   $extension-path.IO.mkdir;
 
   say "unzipping $webdriver-xpi into $extension-path";
-  run "unzip", "-d", $extension-path, $webdriver-xpi;
+  my $zip-file = File::Zip.new(file-name => $webdriver-xpi);
+  $zip-file.unzip(directory => $extension-path);
 
   # Setup firefox environment
   # %*ENV<XRE_CONSOLE_LOG> = "firefox.log";

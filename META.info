@@ -3,7 +3,9 @@
     "version": "*",
     "description": "Perl 6 bindings for Selenium WebDriver",
     "depends": [
+      "File::Temp",
       "File::Which",
+      "File::Zip",
       "HTTP::UserAgent",
       "JSON::Tiny",
       "MIME::Base64",

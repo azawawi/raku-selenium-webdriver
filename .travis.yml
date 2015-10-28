@@ -4,7 +4,7 @@ perl6:
 
 install:
     - rakudobrew build-panda
-    - panda update && panda install File::Which HTTP::UserAgent JSON::Tiny MIME::Base64 URI::Encode
+    - panda update && panda install File::Temp File::Which File::Zip HTTP::UserAgent JSON::Tiny MIME::Base64 URI::Encode
 
 before_script:  # firefox tests
   - "export DISPLAY=:99.0"
