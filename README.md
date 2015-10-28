@@ -11,7 +11,7 @@ This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium W
 ```Perl6
 use Selenium::WebDriver::PhantomJS;
 
-my $driver = Selenium::WebDriver::PhantomJS;
+my $driver = Selenium::WebDriver::PhantomJS.new;
 $driver.url("http://google.com");
 say "Title: "         ~ $driver.title;
 say "URL: "           ~ $driver.url;
