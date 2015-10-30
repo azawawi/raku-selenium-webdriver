@@ -6,6 +6,7 @@
       "File::Temp",
       "File::Which",
       "File::Zip",
+      "Find::Bundled",
       "HTTP::UserAgent",
       "JSON::Tiny",
       "MIME::Base64",

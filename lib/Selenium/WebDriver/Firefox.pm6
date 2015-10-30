@@ -5,6 +5,7 @@ use Selenium::WebDriver::Wire;
 use File::Which;
 use File::Temp;
 use File::Zip;
+use Find::Bundled;
 use JSON::Tiny;
 
 unit class Selenium::WebDriver::Firefox is Selenium::WebDriver::Wire;
@@ -12,24 +13,18 @@ unit class Selenium::WebDriver::Firefox is Selenium::WebDriver::Wire;
 has Proc::Async $.process    is rw;
 
 method start {
+  # firefox webdriver extension needs this weird url prefix
   self.url-prefix = "/hub";
 
-  say 'Finding webdriver location in @*INC' if self.debug;
-  my $webdriver-xpi;
-  my $firefox-prefs;
-  for @*INC -> $lib is copy {
-    $lib = $lib.subst(/^ \w+ '#'/,"");
-    my $f = $*SPEC.catfile($lib, "Selenium/WebDriver/Firefox/extension/webdriver.xpi");
-    if $f.IO ~~ :e {
-        $webdriver-xpi = $f;
-        $firefox-prefs = $*SPEC.catfile($lib,
-          "Selenium/WebDriver/Firefox/extension/prefs.json");
-        last;
-    }
-  }
-  fail("Cannot find webdriver.xpi") unless $webdriver-xpi.defined;
-  fail("Cannot find prefs.json") unless $firefox-prefs.defined;
+  # Find webdriver extension resources in our module installed location
+  say 'Finding webdriver location using Find::Bundled' if self.debug;
+  my $path = 'Selenium/WebDriver/Firefox/extension';
+  my $webdriver-xpi = Find::Bundled.find( 'webdriver.xpi', $path );
+  fail "Cannot find webdriver.xpi" unless $webdriver-xpi.defined;
+  my $firefox-prefs = Find::Bundled.find( 'prefs.json', $path );
+  fail "Cannot find prefs.json" unless $firefox-prefs.defined;
 
+  # Create a temporary folder for our temporary firefox profile
   my ($directory, $dirhandle) = tempdir;
 
   # unzip webdriver.xpi
@@ -43,7 +38,7 @@ method start {
   # Create temporary profile path
   $profile-path.IO.mkdir;
 
-  # Modify port...
+  # Modify mutable port that were loaded from prefs.json
   $prefs<mutable><webdriver_firefox_port> = self.port;
 
   # Write a user.js file in profile path
@@ -60,6 +55,7 @@ method start {
 
   $extension-path.IO.mkdir;
 
+  # Unzip the webdriver extension (XPI file format is simply a ZIP archive)
   say "unzipping $webdriver-xpi into $extension-path";
   my $zip-file = File::Zip.new(file-name => $webdriver-xpi);
   $zip-file.unzip(directory => $extension-path);
@@ -73,15 +69,16 @@ method start {
 
   say "Launching firefox" if self.debug;
 
-  # Find process in PATH
+  # Find firefox process in PATH
   my $firefox = which("firefox");
   die "Cannot find firefox in your PATH" unless $firefox.defined;
 
-  # Run it
+  # Run it asynchrously
   say "Firefox found at '$firefox'" if self.debug;
   my $p = Proc::Async.new($firefox);
   $p.start;
 
+  # And store the process to be able to kill it when we're done
   self.process = $p;
 }
 
