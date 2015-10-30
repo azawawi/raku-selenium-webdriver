@@ -16,15 +16,19 @@ method start {
 
   say 'Finding webdriver location in @*INC' if self.debug;
   my $webdriver-xpi;
+  my $firefox-prefs;
   for @*INC -> $lib is copy {
     $lib = $lib.subst(/^ \w+ '#'/,"");
     my $f = $*SPEC.catfile($lib, "Selenium/WebDriver/Firefox/extension/webdriver.xpi");
     if $f.IO ~~ :e {
         $webdriver-xpi = $f;
+        $firefox-prefs = $*SPEC.catfile($lib,
+          "Selenium/WebDriver/Firefox/extension/prefs.json");
         last;
     }
   }
   fail("Cannot find webdriver.xpi") unless $webdriver-xpi.defined;
+  fail("Cannot find prefs.json") unless $firefox-prefs.defined;
 
   my ($directory, $dirhandle) = tempdir;
 
@@ -34,7 +38,6 @@ method start {
   my $prefs-file-name = "$profile-path/user.js";
 
   # Read firefox json-formatted preferences
-  my $firefox-prefs = "lib/Selenium/WebDriver/Firefox/extension/prefs.json";
   my $prefs = from-json($firefox-prefs.IO.slurp);
 
   # Create temporary profile path
