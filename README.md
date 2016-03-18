@@ -22,7 +22,7 @@ $driver.url("http://google.com");
 say "Title: "         ~ $driver.title;
 say "URL: "           ~ $driver.url;
 say "Source length: " ~ $driver.source.chars;
-$driver.save_screenshot('test.png');
+$driver.save-screenshot('test.png');
 LEAVE {
   $driver.quit if $driver.defined
 };
