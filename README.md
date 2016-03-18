@@ -14,6 +14,7 @@ This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium W
 ## Example
 
 ```Perl6
+use v6;
 use Selenium::WebDriver::PhantomJS;
 
 my $driver = Selenium::WebDriver::PhantomJS.new;
@@ -22,7 +23,9 @@ say "Title: "         ~ $driver.title;
 say "URL: "           ~ $driver.url;
 say "Source length: " ~ $driver.source.chars;
 $driver.save_screenshot('test.png');
-$driver.quit;
+LEAVE {
+  $driver.quit if $driver.defined
+};
 ```
 
 For more examples, please see the [examples](examples) folder.
