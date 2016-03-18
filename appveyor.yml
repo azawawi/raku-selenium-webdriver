@@ -9,9 +9,9 @@ install:
   - git clone https://github.com/tadzik/rakudobrew %USERPROFILE%\rakudobrew
   - SET PATH=%USERPROFILE%\rakudobrew\bin;%PATH%
   - rakudobrew build moar 2016.02
-  - rakudobrew build panda
+  - rakudobrew build zef
   - cd %APPVEYOR_BUILD_FOLDER%
-  - panda installdeps .
+  - zef --depsonly install .
 
 build: off
 
