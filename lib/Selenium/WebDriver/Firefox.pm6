@@ -5,7 +5,6 @@ use Selenium::WebDriver::Wire;
 use File::Which;
 use File::Temp;
 use File::Zip;
-use Find::Bundled;
 use JSON::Tiny;
 
 unit class Selenium::WebDriver::Firefox is Selenium::WebDriver::Wire;
@@ -17,11 +16,10 @@ method start {
   self.url-prefix = "/hub";
 
   # Find webdriver extension resources in our module installed location
-  say 'Finding webdriver location using Find::Bundled' if self.debug;
-  my $path = 'Selenium/WebDriver/Firefox/extension';
-  my $webdriver-xpi = Find::Bundled.find( 'webdriver.xpi', $path );
+  say 'Finding webdriver location using %?RESOURCES' if self.debug;
+  my $webdriver-xpi = %?RESOURCES{'firefox_extension/webdriver.xpi'};
   fail "Cannot find webdriver.xpi" unless $webdriver-xpi.defined;
-  my $firefox-prefs = Find::Bundled.find( 'prefs.json', $path );
+  my $firefox-prefs = %?RESOURCES{'firefox_extension/prefs.json'};
   fail "Cannot find prefs.json" unless $firefox-prefs.defined;
 
   # Create a temporary folder for our temporary firefox profile

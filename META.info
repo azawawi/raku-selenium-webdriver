@@ -6,11 +6,14 @@
     "File::Temp",
     "File::Which",
     "File::Zip",
-    "Find::Bundled",
     "HTTP::UserAgent",
     "JSON::Tiny",
     "MIME::Base64",
     "URI::Encode"
+  ],
+  "resources": [
+    "firefox_extension/prefs.json",
+    "firefox_extension/webdriver.xpi"
   ],
   "provides": {
     "Selenium::WebDriver": "lib/Selenium/WebDriver.pm6"
