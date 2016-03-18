@@ -21,5 +21,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   # give xvfb some time to start
   - sleep 3
+  # Show PhantomJS version
+  - phantomjs --version
 
 script: prove -v -e "perl6 -Ilib" t/
