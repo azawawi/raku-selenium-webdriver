@@ -17,9 +17,9 @@ install:
 
 before_script:
   # Start xvfb for Firefox headless testing and give it some time to start
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then "export DISPLAY=:99.0"         ; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then "sh -e /etc/init.d/xvfb start" ; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sleep 3                        ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export DISPLAY=:99.0         ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sh -e /etc/init.d/xvfb start ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sleep 3                      ; fi
   # Show PhantomJS version
   - phantomjs --version
 
