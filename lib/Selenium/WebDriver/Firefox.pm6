@@ -55,7 +55,7 @@ method start {
 
   # Unzip the webdriver extension (XPI file format is simply a ZIP archive)
   say "unzipping $webdriver-xpi into $extension-path";
-  my $zip-file = File::Zip.new(file-name => $webdriver-xpi);
+  my $zip-file = File::Zip.new(file-name => ~$webdriver-xpi);
   $zip-file.unzip(directory => $extension-path);
 
   # Setup firefox environment
