@@ -1,12 +1,25 @@
+sudo: required
+
 language: perl6
+
+os:
+  - linux
+  - osx
+
 perl6:
-    - latest
+  - 2016.02
+  - latest
 
 install:
-    - rakudobrew build-panda
-    - panda update && panda install File::Temp File::Which File::Zip HTTP::UserAgent JSON::Tiny MIME::Base64 URI::Encode
+  - echo $TRAVIS_OS_NAME
+  - rakudobrew build panda
+  - panda installdeps .
 
-before_script:  # firefox tests
+before_script:
+  # Firefox tests
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+  # give xvfb some time to start
+  - sleep 3
+
+script: prove -v -e "perl6 -Ilib" t/
