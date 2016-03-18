@@ -28,10 +28,11 @@ has Str         $.session-id is rw;
 =begin markdown
 =end markdown
 submethod BUILD(
-  Str $host        = '127.0.0.1',
-  Int :$port       = -1,
-  Str :$url-prefix = '',
-  Bool :$debug     = False )
+  Str $host                        = '127.0.0.1',
+  Int :$port                       = -1,
+  Str :$url-prefix                 = '',
+  Bool :$debug                     = False,
+  Int :$max-attempts where $_ >= 1 = 10 )
 {
 
   # Attributes
@@ -46,9 +47,8 @@ submethod BUILD(
   self.start;
 
   # Try to create a session for n times
-  my constant MAX-ATTEMPTS = 10;
   my $session;
-  for 1..MAX-ATTEMPTS {
+  for 1..$max-attempts {
     # Try to create session
     $session = self._new-session;
     last if $session.defined;
@@ -63,7 +63,7 @@ submethod BUILD(
   }
 
   # No session could be created
-  die "Cannot obtain a session after $(MAX-ATTEMPTS) attempts" unless $session.defined;
+  die "Cannot obtain a session after $max-attempts attempts" unless $session.defined;
 
   self.session-id = $session<sessionId>;
   die "Session id is not defined" unless self.session-id.defined;
