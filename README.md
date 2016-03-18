@@ -1,6 +1,6 @@
 ## Selenium::WebDriver
 
-This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol).
+This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver Wire Protocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol).
 
 ***Note:*** This module is a work in progress. Please see its project status [here](https://github.com/azawawi/perl6-selenium-webdriver/blob/master/README.md#project-status).
 
@@ -34,7 +34,7 @@ For more examples, please see the [examples](examples) folder.
 
 ### Linux/Debian
 
-To install phantomjs on debian, please type the following:
+To install phantomjs on Debian, please type the following:
 ```
 $ sudo apt-get install phantomjs
 ```
@@ -44,8 +44,8 @@ https://bitbucket.org/ariya/phantomjs/downloads) for PhantomJS for Linux if the 
 
 ### Windows
 
-To install phantomjs on windows, please download a copy from
-http://phantomjs.org/ and then make it available in your PATH environment
+To install PhantomJS on windows, please download a copy from
+[Here](http://phantomjs.org/) and then make it available in your PATH environment
 variable.
 
 ### Travis CI
