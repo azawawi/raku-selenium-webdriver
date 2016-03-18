@@ -6,20 +6,16 @@ install:
   - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
   - choco install strawberryperl
   - SET PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;%PATH%
-  - git clone https://github.com/rakudo/rakudo.git %APPVEYOR_BUILD_FOLDER%\..\rakudo
-  - cd %APPVEYOR_BUILD_FOLDER%\..\rakudo
-  - perl Configure.pl --gen-moar=HEAD --gen-nqp
-  - nmake install
-  - SET PATH=%APPVEYOR_BUILD_FOLDER%\..\rakudo\install\bin;%PATH%
+  - git clone https://github.com/tadzik/rakudobrew %USERPROFILE%\rakudobrew
+  - SET PATH=%USERPROFILE%\rakudobrew\bin;%PATH%
+  - rakudobrew build moar 2016.02
+  - rakudobrew build panda
   - cd %APPVEYOR_BUILD_FOLDER%
+  - panda installdeps .
 
 build: off
 
 test_script:
   - prove -v -e "perl6 -Ilib" t/
-  - perl6 -Ilib bin/zef --verbose install .
-  - SET PATH=%APPVEYOR_BUILD_FOLDER%\..\rakudo\install\share\perl6\site\bin;%PATH%
-  - cd %APPVEYOR_BUILD_FOLDER%\..
-  - zef --verbose --force install Zef
 
 shallow_clone: true
