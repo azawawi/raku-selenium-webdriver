@@ -52,6 +52,7 @@ variable.
 
 To install PhantomJS on mac os, the simplest solution is to use brew:
 ```
+$ brew update
 $ brew install phantomjs
 ```
 
