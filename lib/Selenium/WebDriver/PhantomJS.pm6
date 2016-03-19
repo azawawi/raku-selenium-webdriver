@@ -15,12 +15,15 @@ method start {
   my $path = which( 'phantomjs' );
   die "Cannot find phantomjs in your PATH" unless $path.defined;
 
+  say "phantomjs path: $path" if $.debug;
+  say "phantomjs port: $.port"  if $.debug;
   my $process = Proc::Async.new(
     $path,
     "--webdriver=" ~ $.port,
     "--webdriver-loglevel=" ~ ($.debug ?? "DEBUG" !! "WARN"),
   );
-  $process.start;
+  my $p = $process.start;
+  say("phantomjs returned Proc::Async promise: " ~ $p.perl)  if $.debug;
 
   self.process = $process;
 }
