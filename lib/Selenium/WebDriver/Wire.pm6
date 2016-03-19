@@ -32,7 +32,7 @@ submethod BUILD(
   Int :$port                       = -1,
   Str :$url-prefix                 = '',
   Bool :$debug                     = False,
-  Int :$max-attempts where $_ >= 1 = 60 )
+  Int :$max-attempts where $_ >= 1 = 10 )
 {
 
   # Attributes
