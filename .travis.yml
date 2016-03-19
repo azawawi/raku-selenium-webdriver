@@ -1,16 +1,29 @@
 sudo: required
 
+language: perl6
+
 os:
   - linux
   - osx
 
-before_install:
+perl6:
+  - 2016.02
+  - latest
+
+install:
   - echo $TRAVIS_OS_NAME
+  - rakudobrew build panda
+  - panda installdeps .
+
+before_script:
+  # Start xvfb for Firefox headless testing and give it some time to start
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export DISPLAY=:99.0         ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sh -e /etc/init.d/xvfb start ; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sleep 3                      ; fi
   # Install PhantomJS on MacOSX using homebrew
   - if [ "$TRAVIS_OS_NAME" == "osx"   ]; then brew update                  ; fi
   - if [ "$TRAVIS_OS_NAME" == "osx"   ]; then brew install phantomjs       ; fi
   # Show PhantomJS version
   - phantomjs --version
-  - phantomjs --webdriver=5555 --webdriver-loglevel=DEBUG &
 
 script: prove -v -e "perl6 -Ilib" t/
