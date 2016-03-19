@@ -42,19 +42,19 @@ $ sudo apt-get install phantomjs
 **CAUTION**: Also there are [prebuilt binaries](
 https://bitbucket.org/ariya/phantomjs/downloads) for PhantomJS for Linux if the packaged version is a bit old.
 
+### Mac OS X
+
+To install PhantomJS on Mac OS X, the simplest solution is to use brew:
+```
+$ brew update
+$ brew install phantomjs
+```
+
 ### Windows
 
 To install PhantomJS on windows, please download a copy from
 [Here](http://phantomjs.org/) and then make it available in your PATH environment
 variable.
-
-### Mac OS
-
-To install PhantomJS on mac os, the simplest solution is to use brew:
-```
-$ brew update
-$ brew install phantomjs
-```
 
 ### Travis CI
 
