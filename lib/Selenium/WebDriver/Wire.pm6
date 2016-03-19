@@ -28,7 +28,7 @@ has Str         $.session-id is rw;
 =begin markdown
 =end markdown
 submethod BUILD(
-  Str $host                        = '127.0.0.1',
+  Str :$host                       = '127.0.0.1',
   Int :$port                       = -1,
   Str :$url-prefix                 = '',
   Bool :$debug                     = False,
