@@ -42,7 +42,7 @@ ok 1, "'use Selenium::WebDriver::PhantomJS' worked!";
   }
 }
 
-my $driver = Selenium::WebDriver::PhantomJS.new;
+my $driver = Selenium::WebDriver::PhantomJS.new(:debug, :max-attempts(30));
 ok $driver, "Selenium::WebDriver::PhantomJS.new worked";
 
 for @methods -> $method {
