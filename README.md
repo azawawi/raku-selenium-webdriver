@@ -48,6 +48,13 @@ To install PhantomJS on windows, please download a copy from
 [Here](http://phantomjs.org/) and then make it available in your PATH environment
 variable.
 
+### Mac OS
+
+To install PhantomJS on mac os, the simplest solution is to use brew:
+```
+$ brew install phantomjs
+```
+
 ### Travis CI
 
 Travis CI comes with [pre-installed PhantomJS](
