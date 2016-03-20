@@ -25,5 +25,8 @@ before_script:
   - if [ "$TRAVIS_OS_NAME" == "osx"   ]; then brew install phantomjs       ; fi
   # Show PhantomJS version
   - phantomjs --version
+  - which phantomjs
+  - phantomjs --webdriver=6666 --webdriver-loglevel=DEBUG &
+  - /Users/travis/.rakudobrew/bin/phantomjs --webdriver=7777 --webdriver-loglevel=DEBUG &
 
 script: prove -v -e "perl6 -Ilib" t/
