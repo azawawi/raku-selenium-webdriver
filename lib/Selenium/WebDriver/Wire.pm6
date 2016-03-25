@@ -448,7 +448,7 @@ method _elements(Str $using, Str $value) {
     }
   );
 
-  return unless @elements.defined;
+  return unless $elements.defined;
   my @results = $elements<value>.map({
     Selenium::WebDriver::WebElement.new(
       :id( $_<ELEMENT> ),
