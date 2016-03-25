@@ -20,7 +20,7 @@ ok $driver.url   ~~ / ^ 'http' 's'? '://' .+? 'google'/, "google.com in url";
 my $search-box = $driver.element-by-name( 'q' );
 $search-box.send-keys( "Perl 6" );
 
-ok $search-box.tag-name eq 'input', "Search box must be an <input>";
+ok $search-box.tag-name.lc eq 'input', "Search box must be an <input>";
 ok $search-box.enabled,             "Search box is enabled";
 
 # Submit form
