@@ -73,6 +73,7 @@ No special instructions are needed.
 | Opera         | Pending       |
 | MSIE          | Pending       |
 | MSEdge        | Pending       |
+| BlackBerry    | **DONE**      |
 
 ## Installation
 
