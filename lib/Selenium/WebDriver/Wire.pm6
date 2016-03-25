@@ -440,7 +440,7 @@ method element-by-xpath(Str $xpath) {
 =end markdown
 # POST /session/:sessionId/elements
 method _elements(Str $using, Str $value) {
-  my @elements = self._post(
+  my $elements = self._post(
     "elements",
     {
       'using' => $using,
@@ -449,12 +449,12 @@ method _elements(Str $using, Str $value) {
   );
 
   return unless @elements.defined;
-  my @results = gather {
-      take Selenium::WebDriver::WebElement.new(
-        :id( $_<value><ELEMENT> ),
-        :driver( self )
-      ) for @elements;
-  };
+  my @results = $elements<value>.map({
+    Selenium::WebDriver::WebElement.new(
+      :id( $_<ELEMENT> ),
+      :driver( self )
+    )
+  });
 
   return @results;
 }
