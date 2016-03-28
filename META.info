@@ -16,7 +16,20 @@
     "firefox_extension/webdriver.xpi"
   ],
   "provides": {
-    "Selenium::WebDriver": "lib/Selenium/WebDriver.pm6"
+    "Selenium::WebDriver":                   "lib/Selenium/WebDriver.pm6",
+    "Selenium::WebDriver::BlackBerry":       "lib/Selenium/WebDriver/BlackBerry.pm6",
+    "Selenium::WebDriver::Chrome":           "lib/Selenium/WebDriver/Chrome.pm6",
+    "Selenium::WebDriver::Edge":             "lib/Selenium/WebDriver/Edge.pm6",
+    "Selenium::WebDriver::Firefox":          "lib/Selenium/WebDriver/Firefox.pm6",
+    "Selenium::WebDriver::InternetExplorer": "lib/Selenium/WebDriver/InternetExplorer.pm6",
+    "Selenium::WebDriver::Keys":             "lib/Selenium/WebDriver/Keys.pm6",
+    "Selenium::WebDriver::Opera":            "lib/Selenium/WebDriver/Opera.pm6",
+    "Selenium::WebDriver::PhantomJS":        "lib/Selenium/WebDriver/PhantomJS.pm6",
+    "Selenium::WebDriver::Safari":           "lib/Selenium/WebDriver/Safari.pm6",
+    "Selenium::WebDriver::WebElement":       "lib/Selenium/WebDriver/WebElement.pm6",
+    "Selenium::WebDriver::WebWindow":        "lib/Selenium/WebDriver/WebWindow.pm6",
+    "Selenium::WebDriver::Wire":             "lib/Selenium/WebDriver/Wire.pm6",
+    "Selenium::WebDriver::X::Error":         "lib/Selenium/WebDriver/X/Error.pm6"
   },
   "source-url": "git://github.com/azawawi/perl6-selenium-webdriver.git"
 }
