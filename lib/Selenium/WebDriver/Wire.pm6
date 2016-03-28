@@ -721,13 +721,14 @@ method _die(Str $method, Str $command, $response) {
   say "Died while doing '$method $command', content:\n";
   say $response.content if $response.defined;
   say "end of content\n";
+  return unless $response.defined;
   my $o = from-json($response.content);
 
   my $error = $o<value>;
   Selenium::WebDriver::X::Error.new(
-    reason     => $error<message>,
+    reason     => $error<message> // '',
     screenshot => $error<screen>,
-    class      => $error<class>
+    class      => $error<class> // ''
   ).throw;
 }
 =begin markdown
@@ -773,7 +774,7 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
     $result = from-json( $response.content );
   }
   else {
-    self._die($method, $command, $_);
+    self._die($method, $command, $response);
     warn "FAILED: " ~ $response.status-line if self.debug;
   }
 
