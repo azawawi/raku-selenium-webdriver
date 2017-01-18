@@ -77,11 +77,10 @@ No special instructions are needed.
 
 ## Installation
 
-To install it using Panda (a module management tool bundled with Rakudo Star):
+To install it using zef (a module management tool bundled with Rakudo Star):
 
 ```
-$ panda update
-$ panda install Selenium::WebDriver
+$ zef install Selenium::WebDriver
 ```
 
 ## Testing
@@ -90,6 +89,14 @@ To run tests:
 
 ```
 $ prove -v -e "perl6 -Ilib"
+```
+
+To run author tests, you need to manually install [Test::META](
+https://github.com/jonathanstowe/Test-META):
+
+```
+$ zef install Test::META
+$ TEST_AUTHOR=1 prove -e "perl6 -Ilib"
 ```
 
 ## Author

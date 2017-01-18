@@ -12,6 +12,9 @@
     "MIME::Base64",
     "URI::Encode"
   ],
+  "test-depends": [
+    "Test"
+  ],
   "resources": [
     "firefox_extension/prefs.json",
     "firefox_extension/webdriver.xpi"
