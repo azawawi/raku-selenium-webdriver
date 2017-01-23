@@ -7,7 +7,7 @@ Install the Chromium browser as well as the chromedriver:
 ```
 $ sudo apt-get install chromium-browser chromium-chromedriver
 ```
-    
+
 Please remember to add `/usr/lib/chromium-browser/ to your PATH
 
 ```
