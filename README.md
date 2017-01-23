@@ -96,7 +96,7 @@ https://github.com/jonathanstowe/Test-META):
 
 ```
 $ zef install Test::META
-$ TEST_AUTHOR=1 prove -e "perl6 -Ilib"
+$ AUTHOR_TESTING=1 prove -e "perl6 -Ilib"
 ```
 
 ## Author

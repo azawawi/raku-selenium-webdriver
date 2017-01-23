@@ -1,7 +1,7 @@
 {
-  "perl": "6.*",
+  "perl": "6.c",
   "name": "Selenium::WebDriver",
-  "version": "*",
+  "version": "0.0.1",
   "description": "Perl 6 Bindings for Selenium WebDriver",
   "depends": [
     "File::Temp",
