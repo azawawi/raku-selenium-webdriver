@@ -14,7 +14,7 @@ my $driver = Selenium::WebDriver::Chrome.new;
 # Navigate to google.com
 $driver.url( "http://google.com" );
 ok $driver.title ~~ / 'Google' /,                "Google in title";
-ok $driver.url   ~~ / ^ 'http://' .+? 'google'/, "google.com in url";
+ok $driver.url   ~~ / ^ 'https://' .+? 'google'/, "google.com in url";
 
 # Find search box and then type "Perl 6" in it
 my $search-box = $driver.element-by-name( 'q' );

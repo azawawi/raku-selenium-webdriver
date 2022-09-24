@@ -747,8 +747,10 @@ method _execute-command(Str $method, Str $command, Hash $params = {}) {
       :Content-Length($content.chars),
       :Content-Type("application/json;charset=UTF-8"),
       :Connection("close"),
+      :bin(True),
     );
-    $request.add-content($content);
+    $request.content = $content.encode;
+    $request.header.field(Content-Length => $request.content.bytes.Str);
     $response = $ua.request($request);
   }
   elsif ( $method eq 'GET' ) {
