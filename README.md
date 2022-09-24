@@ -1,19 +1,14 @@
 ## Selenium::WebDriver
+[![Actions
+Status](https://github.com/azawawi/raku-selenium-webdriver/workflows/test/badge.svg)](https://github.com/azawawi/raku-selenium-webdriver/actions)
 
-This module provides the [Perl 6](http://perl6.org) bindings for the [Selenium WebDriver Wire Protocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol).
+This module provides the [Raku](http://raku.org) bindings for the [Selenium WebDriver Wire Protocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol).
 
 ***Note:*** This module is a work in progress. Please see its project status [here](https://github.com/azawawi/perl6-selenium-webdriver/blob/master/README.md#project-status).
 
-## Build Status
-
-| Operating System  |   Build Status  | CI Provider |
-| ----------------- | --------------- | ----------- |
-| Linux / Mac OS X  | [![Build Status](https://travis-ci.org/azawawi/perl6-selenium-webdriver.svg?branch=master)](https://travis-ci.org/azawawi/perl6-selenium-webdriver)  | Travis CI |
-| Windows 7 64-bit  | [![Build status](https://ci.appveyor.com/api/projects/status/github/azawawi/perl6-selenium-webdriver?svg=true)](https://ci.appveyor.com/project/azawawi/perl6-selenium-webdriver/branch/master)  | AppVeyor |
-
 ## Example
 
-```Perl6
+```Raku
 use v6;
 use Selenium::WebDriver::PhantomJS;
 
@@ -85,23 +80,21 @@ $ zef install Selenium::WebDriver
 
 ## Testing
 
-To run tests:
-
+- To run tests:
 ```
-$ prove -v -e "perl6 -Ilib"
+$ prove --ext .rakutest -ve "raku -I."
 ```
 
-To run author tests, you need to manually install [Test::META](
-https://github.com/jonathanstowe/Test-META):
-
+- To run all tests including author tests (Please make sure
+[Test::Meta](https://github.com/jonathanstowe/Test-META) is installed):
 ```
 $ zef install Test::META
-$ AUTHOR_TESTING=1 prove -e "perl6 -Ilib"
+$ TEST_AUTHOR=1 prove --ext .rakutest -ve "raku -I."
 ```
 
 ## Author
 
-Ahmad M. Zawawi, [azawawi](https://github.com/azawawi/) on #perl6
+Ahmad M. Zawawi, [azawawi](https://github.com/azawawi/) on #raku
 
 ## License
 

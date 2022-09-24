@@ -2,8 +2,8 @@
   "perl": "6.c",
   "name": "Selenium::WebDriver",
   "license" : "MIT",
-  "version": "0.0.1",
-  "description": "Perl 6 Bindings for Selenium WebDriver",
+  "version": "0.0.2",
+  "description": "Raku Bindings for Selenium WebDriver",
   "depends": [
     "File::Temp",
     "File::Which",
@@ -21,20 +21,20 @@
     "firefox_extension/webdriver.xpi"
   ],
   "provides": {
-    "Selenium::WebDriver":                   "lib/Selenium/WebDriver.pm6",
-    "Selenium::WebDriver::BlackBerry":       "lib/Selenium/WebDriver/BlackBerry.pm6",
-    "Selenium::WebDriver::Chrome":           "lib/Selenium/WebDriver/Chrome.pm6",
-    "Selenium::WebDriver::Edge":             "lib/Selenium/WebDriver/Edge.pm6",
-    "Selenium::WebDriver::Firefox":          "lib/Selenium/WebDriver/Firefox.pm6",
-    "Selenium::WebDriver::InternetExplorer": "lib/Selenium/WebDriver/InternetExplorer.pm6",
-    "Selenium::WebDriver::Keys":             "lib/Selenium/WebDriver/Keys.pm6",
-    "Selenium::WebDriver::Opera":            "lib/Selenium/WebDriver/Opera.pm6",
-    "Selenium::WebDriver::PhantomJS":        "lib/Selenium/WebDriver/PhantomJS.pm6",
-    "Selenium::WebDriver::Safari":           "lib/Selenium/WebDriver/Safari.pm6",
-    "Selenium::WebDriver::WebElement":       "lib/Selenium/WebDriver/WebElement.pm6",
-    "Selenium::WebDriver::WebWindow":        "lib/Selenium/WebDriver/WebWindow.pm6",
-    "Selenium::WebDriver::Wire":             "lib/Selenium/WebDriver/Wire.pm6",
-    "Selenium::WebDriver::X::Error":         "lib/Selenium/WebDriver/X/Error.pm6"
+    "Selenium::WebDriver":                   "lib/Selenium/WebDriver.rakumod",
+    "Selenium::WebDriver::BlackBerry":       "lib/Selenium/WebDriver/BlackBerry.rakumod",
+    "Selenium::WebDriver::Chrome":           "lib/Selenium/WebDriver/Chrome.rakumod",
+    "Selenium::WebDriver::Edge":             "lib/Selenium/WebDriver/Edge.rakumod",
+    "Selenium::WebDriver::Firefox":          "lib/Selenium/WebDriver/Firefox.rakumod",
+    "Selenium::WebDriver::InternetExplorer": "lib/Selenium/WebDriver/InternetExplorer.rakumod",
+    "Selenium::WebDriver::Keys":             "lib/Selenium/WebDriver/Keys.rakumod",
+    "Selenium::WebDriver::Opera":            "lib/Selenium/WebDriver/Opera.rakumod",
+    "Selenium::WebDriver::PhantomJS":        "lib/Selenium/WebDriver/PhantomJS.rakumod",
+    "Selenium::WebDriver::Safari":           "lib/Selenium/WebDriver/Safari.rakumod",
+    "Selenium::WebDriver::WebElement":       "lib/Selenium/WebDriver/WebElement.rakumod",
+    "Selenium::WebDriver::WebWindow":        "lib/Selenium/WebDriver/WebWindow.rakumod",
+    "Selenium::WebDriver::Wire":             "lib/Selenium/WebDriver/Wire.rakumod",
+    "Selenium::WebDriver::X::Error":         "lib/Selenium/WebDriver/X/Error.rakumod"
   },
-  "source-url": "git://github.com/azawawi/perl6-selenium-webdriver.git"
+  "source-url": "git://github.com/azawawi/raku-selenium-webdriver.git"
 }

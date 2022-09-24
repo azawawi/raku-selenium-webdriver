@@ -1,15 +1,14 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use v6;
 
-use lib 'lib';
 use Test;
 plan 5;
-use Selenium::WebDriver::BlackBerry;
+use Selenium::WebDriver::PhantomJS;
 
-# Create new BlackBerry webdriver. The ip address is shown in the
-# development section of the settings menu of the BlackBerry browser.
-my $driver = Selenium::WebDriver::BlackBerry.new('169.254.0.1');
+# Create new phantomjs webdriver. Please note phantomjs must be already
+# installed and configured in PATH
+my $driver = Selenium::WebDriver::PhantomJS.new;
 
 # Navigate to google.com
 $driver.url( "http://google.com" );
@@ -30,3 +29,8 @@ $search-box.submit;
 my $filename = 'output.png';
 $driver.save-screenshot( $filename );
 ok $filename.IO ~~ :e, "$filename exists";
+
+LEAVE {
+  diag 'WebDriver cleanup';
+  $driver.quit if $driver.defined;
+}
